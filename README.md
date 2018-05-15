@@ -39,13 +39,16 @@ on his/her system except Version 0.0.8f which is enclosed in this distribution.
 
 ## Installation
 
-* Download and unzip the latest version of PPTeX-X.X-packages.zip from the tex/ directory.
+* Download and unzip the latest version of PPTeX-X.X-packages.zip from the
+  [tex/](https://github.com/UBod/pptex/tree/master/tex) directory.
 * Copy all the subfolders into a folder where LaTeX searches for files by default (some texmf or
-  localtexmf directory).
+  localtexmf directory). See also [tex/Readme.txt](https://github.com/UBod/pptex/blob/master/tex/Readme.txt).
 * Depending on your TeX/LaTeX system, you probably have to update your filename database.
 
 Your installation was most probably successful if you can process one of the demos included
-in the doc/examples/pptex subfolder. If you intend to use the SCCH layout, you have to make sure
+in the [doc/examples/pptex](https://github.com/UBod/pptex/tree/master/doc/examples/pptex)
+subfolder. If you intend to use the SCCH layout, you have to make sure
 that the Verdana TrueType font is available to TeX. If you intend to use the new JKU layout, you
 have to make sure that the ArialBlack TrueType font is available to TeX. For detailed instructions
-how to make these fonts available to LaTeX, see the appendix of the PPTeX user manual (see docs/manual/PPTeX).
+how to make these fonts available to LaTeX, see the appendix of the PPTeX user manual (see
+[docs/manual/pptex](https://github.com/UBod/pptex/tree/master/doc/manual/pptex)).
