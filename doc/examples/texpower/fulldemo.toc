@@ -1,0 +1,36 @@
+\contentsline {section}{\numberline {1}Examples}{7}{section.1}
+\contentsline {subsection}{\numberline {1.1}Some examples for \code {\textbackslash pause}}{8}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}\code {\textbackslash stepwise} Example: A Picture}{9}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}\code {\textbackslash stepwise} Example: A Tabular}{10}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}\code {\textbackslash stepwise} Example: An Aligned Equation}{11}{subsection.1.4}
+\contentsline {subsection}{\numberline {1.5}\code {\textbackslash stepwise} Example: Inside A Paragraph}{13}{subsection.1.5}
+\contentsline {subsection}{\numberline {1.6}\code {\textbackslash stepwise} Example: Writing Backwards}{15}{subsection.1.6}
+\contentsline {subsection}{\numberline {1.7}\code {\textbackslash stepwise} Example: Highlighting Text}{16}{subsection.1.7}
+\contentsline {subsection}{\numberline {1.8}\code {\textbackslash stepwise} Example: Fooling Around}{18}{subsection.1.8}
+\clearpage 
+\contentsline {section}{\numberline {2}(Preliminary) Documentation}{19}{section.2}
+\contentsline {subsection}{\numberline {2.1}Usage and general options}{22}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}General options}{24}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}Side effects of page contents duplication}{24}{subsubsection.2.1.2}
+\contentsline {subsubsection}{\numberline {2.1.3}Setting the base font}{27}{subsubsection.2.1.3}
+\contentsline {subsubsection}{\numberline {2.1.4}Switches}{29}{subsubsection.2.1.4}
+\contentsline {subsubsection}{\numberline {2.1.5}Configuration files}{31}{subsubsection.2.1.5}
+\contentsline {subsubsection}{\numberline {2.1.6}Dependencies on other packages}{32}{subsubsection.2.1.6}
+\contentsline {subsubsection}{\numberline {2.1.7}What else is part of the T\kern -.1667em\lower .5ex\hbox {E}\kern -.125emX\spacefactor \@m Power bundle?}{35}{subsubsection.2.1.7}
+\contentsline {subsection}{\numberline {2.2}The \code {\textbackslash pause} command}{42}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}The \code {\textbackslash stepwise} command}{46}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}\code {\textbackslash boxedsteps} and \code {\textbackslash nonboxedsteps}}{51}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {2.3.2}Custom versions of \code {\textbackslash stepwise}}{54}{subsubsection.2.3.2}
+\contentsline {subsubsection}{\numberline {2.3.3}Starred versions of \code {\textbackslash stepwise} commands}{56}{subsubsection.2.3.3}
+\contentsline {subsubsection}{\numberline {2.3.4}The optional argument of \code {\textbackslash stepwise}}{57}{subsubsection.2.3.4}
+\contentsline {subsubsection}{\numberline {2.3.5}Customizing the way \code {{\everymath {}\ensuremath {\everymath {\color {mathcolor}}\left <\code {stepcontents}\right >}}} is diplayed}{58}{subsubsection.2.3.5}
+\contentsline {subsubsection}{\numberline {2.3.6}Variants of \code {\textbackslash step}}{67}{subsubsection.2.3.6}
+\contentsline {subsubsection}{\numberline {2.3.7}Optional arguments of \code {\textbackslash step}}{71}{subsubsection.2.3.7}
+\contentsline {subsubsection}{\numberline {2.3.8}Finding out what's going on}{75}{subsubsection.2.3.8}
+\contentsline {subsubsection}{\numberline {2.3.9}\code {\textbackslash afterstep}}{77}{subsubsection.2.3.9}
+\contentsline {subsection}{\numberline {2.4}Page transitions and automatic advancing}{78}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}Page transitions}{78}{subsubsection.2.4.1}
+\contentsline {subsubsection}{\numberline {2.4.2}Automatic advancing of pages}{85}{subsubsection.2.4.2}
+\contentsline {subsection}{\numberline {2.5}Color emphasis and highlighting}{87}{subsection.2.5}
+\contentsline {subsubsection}{\numberline {2.5.1}New commands for emphasis and highlighting elements}{92}{subsubsection.2.5.1}
+\contentsline {subsubsection}{\numberline {2.5.2}Defined colors for emphasis and highlighting elements}{99}{subsubsection.2.5.2}

@@ -1,0 +1,52 @@
+%-----------------------------------------------------------------------------------------------------------------
+% File: tabexample.tex
+%
+% Tabular example for the package texpower.sty.
+% 
+% This file can be compiled with pdfLaTeX or (standard) LaTeX. When using standard LaTeX, the dvi file produced should
+% be processed with 
+% 
+% dvips -Ppdf -j0 tabexample
+% 
+% afterwards processing the resulting ps file with
+%
+% distill tabexample.ps
+%
+% (The syntax is for a unix system with tetex 1.0 and distiller 3. Modify appropriately for other configurations.)
+%
+% The resulting pdf file is meant for presenting `interactively' with Adobe Acrobat Reader. 
+%
+%-----------------------------------------------------------------------------------------------------------------
+% Autor: Stephan Lehmke <Stephan.Lehmke@cs.uni-dortmund.de>
+%
+% v0.0.1 Mar 20, 2000: First version for the pre-alpha release of TeXPower.
+%
+% v0.0.2 Apr 28, 2000: Some small changes in preparation of the update to TeXpower v0.0.7.
+%
+
+%-----------------------------------------------------------------------------------------------------------------
+% Use slifonts. 
+
+\PassOptionsToPackage{slifonts}{texpower}
+
+% Input the generic preamble.
+
+\input{__TPpble}
+\hypersetup{pdftitle={texpower tabular example}}
+
+
+%-----------------------------------------------------------------------------------------------------------------
+% Finally, everything is set up. Here we go...
+%
+\begin{document}
+\begin{slide}
+  \input{__TPtab}
+\end{slide}
+\end{document}
+
+
+
+% Local Variables: 
+% fill-column: 120
+% TeX-master: t
+% End: 

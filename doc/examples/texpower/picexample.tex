@@ -1,0 +1,67 @@
+%-----------------------------------------------------------------------------------------------------------------
+% File: picexample.tex
+%
+% Picture example for the package texpower.sty.
+% 
+% This file can be compiled with pdfLaTeX or (standard) LaTeX. When using standard LaTeX, the dvi file produced should
+% be processed with 
+% 
+% dvips -Ppdf -j0 picexample
+% 
+% afterwards processing the resulting ps file with
+%
+% distill picexample.ps
+%
+% (The syntax is for a unix system with tetex 1.0 and distiller 3. Modify appropriately for other configurations.)
+%
+% The resulting pdf file is meant for presenting `interactively' with Adobe Acrobat Reader.
+%
+% Note that different pictures are produced with pdflatex and latex, because pdflatex does not support PSTricks.
+%
+%-----------------------------------------------------------------------------------------------------------------
+% Autor: Stephan Lehmke <Stephan.Lehmke@cs.uni-dortmund.de>
+%
+% v0.0.1 Mar 20, 2000: First version for the pre-alpha release of TeXPower.
+%
+% v0.0.2 Apr 27, 2000: Some small changes in preparation of the update to TeXpower v0.0.7.
+%
+
+%-----------------------------------------------------------------------------------------------------------------
+% Use slifonts and a dark background. 
+
+\PassOptionsToPackage{colormath,colorhighlight,slifonts,darkbackground}{texpower}
+
+% Input the generic preamble.
+
+\input{__TPpble}
+\hypersetup{pdftitle={texpower picture example}}
+
+
+\ifthenelse{\boolean{psspecialsallowed}}% Can we use PSTricks?
+{% Yes.
+  % PsTricks (sic) is used for creating the picture example.
+
+  \usepackage{pstcol}
+  \usepackage{pst-node}
+  
+  \psset{unit=\unitlength}
+  }
+{% No. We'll make do without.
+  }
+
+
+%-----------------------------------------------------------------------------------------------------------------
+% Finally, everything is set up. Here we go...
+%
+\begin{document}
+\begin{slide}
+  \input{__TPpic}
+\end{slide}
+\end{document}
+
+
+
+% Local Variables: 
+% fill-column: 120
+% TeX-master: t
+% End: 

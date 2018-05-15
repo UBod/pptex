@@ -1,0 +1,69 @@
+%-----------------------------------------------------------------------------------------------------------------
+% File: FAQ-display.tex
+%
+% Frequently Asked Questions list for the TeXPower bundle (screen version).
+% 
+% This file can be compiled with pdfLaTeX or (standard) LaTeX. When using standard LaTeX, the dvi file produced should
+% be processed with 
+% 
+% dvips -Ppdf -j0 FAQ-display
+% 
+% afterwards processing the resulting ps file with
+%
+% distill FAQ-display.ps
+%
+% (The syntax is for a unix system with tetex 1.0 and distiller 3. Modify appropriately for other configurations.)
+%
+% The resulting pdf file is meant for presenting `interactively' with Adobe Acrobat Reader. 
+%
+%-----------------------------------------------------------------------------------------------------------------
+% Autor: Stephan Lehmke <Stephan.Lehmke@cs.uni-dortmund.de>
+%
+% v0.0.1 May 31, 2000: First version for the pre-alpha release of TeXPower.
+%
+% v0.0.2 Jun 14, 2000: Changed slidesmag to 4 so slides look less `squeezed'. The `display' version is for demonstrating
+%                      effects, not a template for `real' presentations. 
+%
+
+%-----------------------------------------------------------------------------------------------------------------
+% Enable all color emphasis and highlighting options; use a light background and slifonts.
+
+\PassOptionsToPackage{coloremph,colormath,colorhighlight,lightbackground,slifonts}{texpower}
+
+% Input the generic preamble.
+
+\input{__TPpble}
+\hypersetup{pdftitle={TeXPower Frequently Asked Questions list}}
+
+\slidesmag{4}
+
+% The package soul is needed for \highlighttext to work.
+
+\usepackage{soul}
+
+
+% The following package makes code look a little nicer, but it may not be present on all systems.
+
+\IfFileExists{cmtt.sty}{\usepackage[override]{cmtt}}{}
+
+\usepackage{fancyvrb}
+
+\usepackage{array}
+
+\usepackage{longtable}
+
+%-----------------------------------------------------------------------------------------------------------------
+% Finally, everything is set up. Here we go...
+%
+\begin{document}
+\begin{slide}
+  \input{__TPFAQ}
+\end{slide}
+\end{document}
+
+
+
+% Local Variables: 
+% fill-column: 120
+% TeX-master: t
+% End: 

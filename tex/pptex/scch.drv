@@ -1,0 +1,160 @@
+%
+%
+% driver for PPTeX document class: SCCH Slides (with 10x7.5in paper)
+%
+% created:       2007-06-10 by Peter Haslinger
+% last revision: 2007-08-10 by Ulrich Bodenhofer
+%
+%
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+
+\ProvidesFile{scch.drv}[2007/08/10 SCCH Slide Class Driver]
+
+%
+% font customizations
+%
+\renewcommand{\rmdefault}{phv}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{pcr}
+
+%
+% page setup
+%
+\renewcommand{\slidetopmargin}{-1.15mm}
+\renewcommand{\slidebottommargin}{0mm}
+
+\renewcommand{\slideleftmargin}{0mm}
+\renewcommand{\sliderightmargin}{0mm}
+
+%
+% declaration of logo commands
+%
+\def\@SCCHLogoDir{}
+
+\newcommand{\SCCHLogoDir}[1]{\def\@SCCHLogoDir{#1}}
+
+\newcommand{\SCCHColorLogo}[1]{\includegraphics[width=#1]{\@SCCHLogoDir scchcolorlogo}}
+\newcommand{\SCCHVarColorLogo}[1]{\includegraphics[#1]{\@SCCHLogoDir scchcolorlogo}}
+
+\newcommand{\JKULogo}[1]{\includegraphics[#1]{\@SCCHLogoDir jku_logo}}
+\newcommand{\SWPLogo}[1]{\includegraphics[#1]{\@SCCHLogoDir swp_logo}}
+
+%
+% redefine colors
+%
+\definecolor{scchwh}{rgb}{1.00,1.00,1.00}
+\definecolor{scchbl}{rgb}{0.00,0.00,0.00}
+\definecolor{scchre}{rgb}{0.72,0.16,0.18}
+\definecolor{scchlg}{rgb}{0.75,0.75,0.75}
+\definecolor{scchdg}{rgb}{0.37,0.37,0.37}
+
+\definecolor{pagecolor}{rgb}{1.0,1.0,1.0}
+\definecolor{textcolor}{rgb}{0.0,0.0,0.0}
+
+\replacecolor{pagecolor}{scchwh}
+\replacecolor{textcolor}{scchbl}
+
+\newcommand{\red}{\color{scchre}}
+
+%
+% hyperref setup
+%
+\hypersetup{bookmarksopen,colorlinks,urlcolor=scchre,pdfpagemode=FullScreen}
+
+%
+% set item and enum labels
+%
+\renewcommand{\labelitemi}{{\red{}\rule[0.3ex]{0.6ex}{0.6ex}}}
+\renewcommand{\labelitemii}{{\red{}\rule[0.25ex]{0.4ex}{0.4ex}}}
+\renewcommand{\labelitemiii}{{\red{}---}}
+\renewcommand{\labelitemiv}{{\red{}--}}
+\renewcommand{\labelenumi}{{\red{}\theenumi.}}
+\renewcommand{\labelenumii}{{\red{}(\theenumii)}}
+\renewcommand{\labelenumiii}{{\red{}\theenumiii.}}
+\renewcommand{\labelenumiv}{{\red{}\theenumiv.}}
+
+%
+% declare slide environments
+%
+\newlength{\SCCHredMasterWidth}
+\newlength{\SCCHTopMasterHeight}
+\newlength{\SCCHgrayMasterWidth}
+\newlength{\SCCHgrayMasterHeight}
+\newlength{\SCCHswpLogoMasterWidth}
+\newlength{\SCCHjkuLogoMasterWidth}
+
+\newlength{\SCCHredSlideWidth}
+\newlength{\SCCHTopSlideHeight}
+
+\setslidelength{\SCCHredMasterWidth}{11.65cm}
+\setslidelength{\SCCHTopMasterHeight}{3.18cm}
+\setslidelength{\SCCHgrayMasterWidth}{24.56cm}
+\setslidelength{\SCCHgrayMasterHeight}{12.49cm}
+\setslidelength{\SCCHswpLogoMasterWidth}{5.20cm}
+\setslidelength{\SCCHjkuLogoMasterWidth}{6.14cm}
+
+\setslidelength{\SCCHredSlideWidth}{15.88cm}
+\setslidelength{\SCCHTopSlideHeight}{2.12cm}
+
+%
+% the master slide
+%
+\newcommand{\scchtitleslide}[3][]{%
+\setslidelength{\unitlength}{1cm}
+\pdfbookmark[-1]{#1}{slide\theslide}
+\begin{picture}(25.4,19.05)
+\put(0.42,18.63){\makebox(0,0)[lt]{{\red\rule{5.55cm}{1.55cm}} }}
+\put(24.98,18.63){\makebox(0,0)[rt]{\includegraphics[height=\SCCHTopMasterHeight]{\@SCCHLogoDir scchcolorlogo} }}
+\put(0.42,15.03){\makebox(0,0)[lt]{\color{scchdg}\rule{24.56\semcm}{12.49\semcm}}}
+\put(0.44,15.01){\makebox(0,0)[lt]{\color{scchlg}\rule{24.52\semcm}{12.45\semcm}}}
+\put(1.1,6.57){\makebox(0,0)[lt]{{\fontfamily{phv}\fontsize{6pt}{7pt}\selectfont\begin{minipage}{10.0\semcm} {#1} \end{minipage}} }}
+\put(1.1,10.04){\makebox(0,0)[lb]{\begin{minipage}{23.21\semcm}
+{\fontfamily{tvrd}\color{scchbl}\Large\bfseries\begin{flushleft}
+#2
+\end{flushleft}}
+\end{minipage}}}
+\put(1.1,9.7){\makebox(0,0)[lt]{\begin{minipage}{23.21\semcm}
+{\fontfamily{tvrd}\color{scchdg}\large\bfseries\begin{flushleft}
+#3
+\end{flushleft}}
+\end{minipage}}}
+\put(0.42,2.37){\makebox(0,0)[lt]{{\fontfamily{phv}\fontsize{4pt}{5pt}\selectfont SCCH is an initiative of}}}
+\put(0.42,1.89){\makebox(0,0)[lt]{\includegraphics[width=\SCCHjkuLogoMasterWidth]{\@SCCHLogoDir jku_logo}}}
+\put(24.98,2.4){\makebox(0,0)[rt]{{\fontfamily{phv}\fontsize{4pt}{5pt}\selectfont SCCH is located at}}}
+\put(25.11,2.07){\makebox(0,0)[rt]{\includegraphics[width=\SCCHswpLogoMasterWidth]{\@SCCHLogoDir swp_logo.png}}}
+\end{picture}}
+
+%
+% standard slide
+%
+\newcommand{\scchslide}[2]{%
+\setslidelength{\unitlength}{1cm}
+\pdfbookmark[0]{#1}{slide\theslide}
+\begin{picture}(25.4,19.05)
+\put(0.42,18.63){\makebox(0,0)[lt]{{\red\rule[0cm]{15.88\semcm}{2.12\semcm}} }}
+\put(25.04,18.63){\makebox(0,0)[rt]{\includegraphics[height=\SCCHTopSlideHeight]{\@SCCHLogoDir scchcolorlogo.png}}}
+\put(0.42,16.09){\makebox(0,0)[lt]{\color{scchdg}\rule{24.56\semcm}{14.82\semcm}}}
+\put(0.44,16.07){\makebox(0,0)[lt]{\color{scchwh}\rule{24.52\semcm}{14.78\semcm}}}
+\put(0.46,0.73){\makebox(0,0)[l]{{\color{scchlg}\fontfamily{phv}\fontsize{5pt}{7pt}\selectfont\PPTeX@footline}}}
+\put(24.94,0.73){\makebox(0,0)[r]{{\color{scchlg}\fontfamily{phv}\fontsize{5pt}{7pt}\selectfont\theslide}}}
+\put(0.67,17.48){\makebox(0,0)[l]{\begin{minipage}{15.38\semcm}
+{\color{scchwh}\fontfamily{tvrd}\fontsize{11pt}{12pt}\bfseries\selectfont\begin{flushleft}
+#1
+\end{flushleft}}
+\end{minipage}}}
+#2
+\end{picture}}
+
+\newcommand{\scchsimpletextslide}[2]{\scchslide{#1}{%
+\textbox{1.10,15.32}{23.21}{#2}}}
+
+\newcommand{\scchcopyright}{\copyright\ Software Competence Center Hagenberg GmbH}
+
+\setfootline{\scchcopyright}
+
+\def\slideleftmargini{1.4em}
+\def\slideleftmarginii{1.2em}
+\def\slideleftmarginiii{1em}
+\def\slidelabelsep{.5em}
+
+\endinput

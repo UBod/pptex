@@ -1,0 +1,84 @@
+<html>
+<head>
+<title>PPTeX - Yet Another LaTeX Package for Slide Presentations</title>
+<link href="../css/ulrich.css" type=text/css rel=stylesheet>
+</head>
+<body>
+
+<h1>PPTeX - Yet Another LaTeX Package for Slide Presentations</h1>
+
+In 2000, the author developed a LaTeX document class for his former employer, <a href="http://www.scch.at/" target="new_window">Software Competence Center Hagenberg</a>, with the aim to emulate the corporate design of this institution’s PowerPoint template. The given package pptex.cls is a new version and generalization of this
+package (that was called scch-slides.cls then). The main difference between the former class
+scch-slides.cls and pptex.cls is that different layouts, including the SCCH layout, are possible.
+The set of available layouts is extensible. Moreover, pptex.cls now supports a 4:3 page/slide
+format of 10×7.5in by default (the same as MS PowerPoint), whereas scch-slides.cls was only
+able to use A4 format.<p>
+
+The basic philosophy of PPTeX is borrowed from MS PowerPoint (and this is also where the name stems from), i.e. to provide the user a drawing canvas where content can be placed in boxes at more or less arbitrary positions (but with some pre-defined layout of course). That is also the main point in which PPTeX differs from the other LaTeX classes for producing slide presentations like <a href="http://prosper.sourceforge.net/" target="new_window">prosper</a>, <a href="http://latex-beamer.sourceforge.net/" target="new_window">beamer</a>, <a href="http://texpower.sourceforge.net/" target="new_window">texpower</a>, etc. PPTeX uses Version 0.0.8f of Stephan Lehmke's <a href="http://texpower.sourceforge.net/" target="new_window">texpower</a> package for animations.
+
+<h3>License issues</h3>
+
+All files included in this distribution that were written by Ulrich
+Bodenhofer are completely free. They may be downloaded, used, copied,
+distributed, modified, without any restrictions and without the prior
+acceptance of the author.<p>
+
+However, for installation convenience, this distribution also contains material from other authors,
+in particular, Version 0.0.8f of Stephan Lehmke's <a href="http://texpower.sourceforge.net/" target="new_window">texpower</a> package. For these files, license restrictions may apply. Please check the
+headers of these files for further information.
+
+<h3>Compatibility issues</h3>
+
+PPTeX has been developed using Version 0.0.8f of Stephan Lehmke's
+<a href="http://texpower.sourceforge.net/" target="new_window">texpower</a>  package. Recent attempts to port PPTeX to the recent 0.4 version of <a href="http://texpower.sourceforge.net/" target="new_window">texpower</a> were not successful. The user is advised, therefore, not to have any other version of <a href="http://texpower.sourceforge.net/" target="new_window">texpower</a>  on his/her system except Version 0.0.8f which is enclosed in this distribution.
+
+<h3>Download</h3>
+
+<table BORDER=1 CELLSPACING=0 CELLPADDING=3 VALIGN=TOP width="85%">
+<tr>
+<td valign="TOP"><b>File</b></td>
+<td valign="TOP"><b>Description</b></td
+<td valign="TOP" width="10%"><b>Size</b></td>
+<td valign="TOP" width="15%"><b>Last modified</b></td>
+</tr>
+<tr>
+<td valign="TOP"><a href="Readme.txt">Readme.txt</a></td>
+<td valign="TOP">Installation instructions and release notes</td>
+<td valign="TOP">3KB</td>
+<td valign="TOP">2007/08/10</td>
+</tr>
+<tr>
+<td valign="TOP"><a href="PPTeX-0.5-packages.zip">PPTeX-0.5-packages.zip</a></td>
+<td valign="TOP">PPTeX package and other necessary LaTeX Packages</td>
+<td valign="TOP">610KB</td>
+<td valign="TOP">2007/08/10</td>
+</tr>
+<tr>
+<td valign="TOP"><a href="PPTeX-0.5-doc.zip">PPTeX-0.5-doc.zip</a></td>
+<td valign="TOP">Full set of manuals and examples for PPTeX and auxiliary LaTeX packages</td>
+<td valign="TOP">2,264KB</td>
+<td valign="TOP">2007/08/10</td>
+</tr>
+</table>
+
+<h3>Installation instructions</h3>
+
+<ol>
+<li>Download and unzip <a href="PPTeX-0.5-packages.zip">PPTeX-0.5-packages.zip</a> (610KB).
+<li>Copy all the subfolders into a
+folder where LaTeX searches for files by default (some texmf or
+localtexmf directory).
+<li>
+Depending on the TeX distribution you use, it might be necessary to
+refresh the filename database. If you use <a href="http://www.miktex.org/" target="new_window">MikTeX</a>, follow the following
+steps:
+<ol>
+<li>Open the "MikTeX Settings" (2.5) or "MikTeX options" (pre-2.5) dialog
+<li>Go to tab "General"
+<li>Press "Refresh FNDB"
+</ol>
+</ol>
+Your installation was most probably successful if you can process one of the demos included in the examples/pptex subfolder of <a href="PPTeX-0.5-doc.zip">PPTeX-0.5-doc.zip</a> (2,264KB). If you intend to use the SCCH layout, you have to make sure that the Verdana TrueType font is available to TeX (see the appendix of the PPTeX Manual which is also contained in <a href="PPTeX-0.5-doc.zip">PPTeX-0.5-doc.zip</a>).
+<!--******** for defining page setup (type area) **********-->
+</BODY>
+</HTML>

@@ -1,0 +1,59 @@
+\documentclass[display,scch]{pptex}
+
+\setfootline{Ulrich Bodenhofer}
+
+\begin{document}
+\begin{slide}
+\titleslide[{\bf Peter Haslinger}\\
+\newline
+Tel. +43 7236 3343 834\\
+peter.haslinger@scch.at \\
+www.scch.at]{PP\TeX}{A Short Demo}
+\end{slide}
+
+\begin{slide}
+\simpletextslide{Standard Itemization}{%
+\begin{itemize}
+\item Mama got a sqeezebox\dots
+\item daddy
+\item never sleeps
+\item at night
+\end{itemize}}
+\end{slide}
+
+\begin{slide}
+\stepwise{\simpletextslide{Standard Itemization (animated)}{%
+\step{\begin{itemize}
+\item Mama got a sqeezebox\dots
+\step{\item daddy}
+\step{\item never sleeps}
+\step{\item at night}
+\end{itemize}}}}
+\end{slide}
+
+\begin{slide}
+\simpleslide{What/who is ``fuzzy''?}{%
+\clearbox{1,13}{\includegraphics[width=7\semcm]{fuzzy.jpg}}
+\textbox{9,13}{15}{\small%
+{\bf fuzz$\bullet$y} (fuz´e), {\em adj.} {\bf fuzz$\bullet$i$\bullet$er},
+{\bf fuzz$\bullet$i$\bullet$est}. {\bf 1.} of the nature of or resembling
+fuzz: A soft, fuzzy material. {\bf 2.} covered with fuzz: a plant with
+broad, fuzzy leaves. {\bf 3.} indistinct; blurred: A fuzzy photograph
+usually means you jiggled the camera. {\bf 4.} muddleheaded; incoherent,
+often as a result of intoxication: a fuzzy thinker; to become fuzzy
+after one drink.}}
+\end{slide}
+
+\begin{slide}
+\stepwise{\simpleslide{What/who is ``fuzzy'' (animated)?}{%
+\step{\clearbox{1,13}{\includegraphics[width=7\semcm]{fuzzy.jpg}}\afterstep{\pageTransitionDissolve}}
+\step{\textbox{9,13}{15}{\small%
+{\bf fuzz$\bullet$y} (fuz´e), {\em adj.} {\bf fuzz$\bullet$i$\bullet$er},
+{\bf fuzz$\bullet$i$\bullet$est}. {\bf 1.} of the nature of or resembling
+fuzz: A soft, fuzzy material. {\bf 2.} covered with fuzz: a plant with
+broad, fuzzy leaves. {\bf 3.} indistinct; blurred: A fuzzy photograph
+usually means you jiggled the camera. {\bf 4.} muddleheaded; incoherent,
+often as a result of intoxication: a fuzzy thinker; to become fuzzy
+after one drink.}}}}
+\end{slide}
+\end{document}

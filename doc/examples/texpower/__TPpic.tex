@@ -1,0 +1,27 @@
+%-----------------------------------------------------------------------------------------------------------------
+% File: __TPpic.tex
+%
+% Code for the picture example for the package texpower.sty.
+% 
+% This file is input by others. Don't compile it separately.
+%
+%-----------------------------------------------------------------------------------------------------------------
+% Autor: Stephan Lehmke <Stephan.Lehmke@cs.uni-dortmund.de>
+%
+% v0.0.1 Mar 21, 2000: First version for the pre-alpha release of TeXPower.
+%
+% v0.0.2 Apr 27, 2000: Some small changes in preparation of the update to TeXpower v0.0.7.
+%
+
+%-----------------------------------------------------------------------------------------------------------------
+%
+\makeslidetitle{\macroname{stepwise} Example: A Picture}\label{Sec:ExPic}
+
+\ifthenelse{\boolean{psspecialsallowed}}% Can we use PSTricks?
+{\input{__TPppic}}{\input{__TPlpic}}
+  
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "picexample"
+%%% End: 

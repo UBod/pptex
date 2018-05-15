@@ -1,0 +1,18 @@
+\ProvidesFile{t1tvrd.fd}
+   [2007/08/10 font definitions for T1/tvrd.]
+
+\DeclareFontFamily{T1}{tvrd}{}
+
+\DeclareFontShape{T1}{tvrd}{b}{n}{<-> ecvrdb}{}
+\DeclareFontShape{T1}{tvrd}{b}{sl}{<-> ecvrdbo}{}
+\DeclareFontShape{T1}{tvrd}{b}{it}{<-> ecvrdbi}{}
+
+\DeclareFontShape{T1}{tvrd}{m}{n}{<-> ecvrd}{}
+\DeclareFontShape{T1}{tvrd}{m}{sl}{<-> ecvrdo}{}
+\DeclareFontShape{T1}{tvrd}{m}{it}{<-> ecvrdi}{}
+
+\DeclareFontShape{T1}{tvrd}{bx}{n}{<->ssub * tvrd/b/n}{}
+\DeclareFontShape{T1}{tvrd}{bx}{sl}{<->ssub * tvrd/b/sl}{}
+\DeclareFontShape{T1}{tvrd}{bx}{it}{<->ssub * tvrd/b/it}{}
+
+\endinput

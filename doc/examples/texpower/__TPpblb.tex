@@ -1,0 +1,58 @@
+%-----------------------------------------------------------------------------------------------------------------
+% File: __TPpblb.tex
+%
+% Code for the second part of the preamble of TeXPower demos.
+% 
+% This file is input by others. Don't compile it separately.
+%
+%-----------------------------------------------------------------------------------------------------------------
+% Autor: Stephan Lehmke <Stephan.Lehmke@cs.uni-dortmund.de>
+%
+% v0.0.1 Mar 20, 2000: First version for the pre-alpha release of TeXPower.
+% v0.0.2 Mar 22, 2000: Now loading the config file.
+% v0.0.3 Mar 29, 2000: texpower doesn't load hyperref any more; there's now a package fixseminar. 
+% v0.0.4 Apr 19, 2000: Added \slidetitle command. 
+%
+
+
+%-----------------------------------------------------------------------------------------------------------------
+% We load hyperref and fixseminar which fixes some problems with seminar.
+%
+\usepackage[bookmarksopen,colorlinks,urlcolor=red,pdfpagemode=FullScreen]{hyperref}
+\usepackage{fixseminar}
+
+%-----------------------------------------------------------------------------------------------------------------
+% Finally, the texpower package is loaded. 
+%
+\usepackage{texpower}
+
+%% The configuration file allows user-specific settings.
+
+\input{__TP.cfg}
+
+%-----------------------------------------------------------------------------------------------------------------
+% Some more parameters...
+%
+\slidesmag{5}
+\slideframe{none}
+\pagestyle{empty}
+\setcounter{tocdepth}{2}
+
+%-----------------------------------------------------------------------------------------------------------------
+% The following command produces a title page for every example and documentation file.
+
+\newcommand{\makeslidetitle}[1]
+{%
+  \title{The \TeX Power bundle\\[2ex]{\normalfont #1}}
+  \author{Stephan Lehmke\\\url{mailto:Stephan.Lehmke@cs.uni-dortmund.de}}
+  \maketitle
+
+  \newslide
+  \setcounter{firststep}{1}% This way, the first step of all examples is displayed.
+}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% fill-column: 120
+%%% TeX-master: "dummy"
+%%% End: 

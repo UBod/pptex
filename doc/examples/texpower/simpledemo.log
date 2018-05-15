@@ -1,0 +1,114 @@
+This is pdfTeX, Version 3.14159-14f-released-20000525 (MiKTeX 2) (preloaded format=latex 2000.11.28)  21 JUN 2003 15:31
+**simpledemo.tex
+(simpledemo.tex{pdftex.cfg}
+LaTeX2e <2000/06/01>
+Babel <v3.6Z> and hyphenation patterns for english, french, german, ngerman, du
+mylang, nohyphenation, loaded.
+(c:\TeX\default-installation\tex\latex\base\article.cls
+Document Class: article 2000/05/19 v1.4b Standard LaTeX document class
+(c:\TeX\default-installation\tex\latex\base\size12.clo
+File: size12.clo 2000/05/19 v1.4b Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(C:\TeX\local\tex\latex\texpower\texpower.sty
+Package: texpower 2000/06/27 Create Dynamic Presentations with LaTeX. v0.0.8f
+
+(c:\TeX\default-installation\tex\latex\base\ifthen.sty
+Package: ifthen 1999/09/10 v1.1b Standard LaTeX ifthen package (DPC)
+)
+(c:\TeX\default-installation\tex\latex\tools\calc.sty
+Package: calc 1998/07/07 v4.1b Infix arithmetic (KKT,FJ)
+\calc@Acount=\count87
+\calc@Bcount=\count88
+\calc@Adimen=\dimen103
+\calc@Bdimen=\dimen104
+\calc@Askip=\skip43
+\calc@Bskip=\skip44
+LaTeX Info: Redefining \setlength on input line 59.
+LaTeX Info: Redefining \addtolength on input line 60.
+\calc@denominator=\count89
+)
+(C:\TeX\local\tex\latex\texpower\tpoptions.cfg)
+\mempageconts@TP=\box26
+\memfootins@TP=\insert233
+\memtoks@TP=\toks14
+\mempageno@TP=\count90
+\c@totalsteps=\count91
+\c@firststep=\count92
+\c@step=\count93
+\c@stepcommand=\count94
+\c@stepsperformed=\count95
+\highlightboxsep=\skip45
+\c@o@fs@TP=\count96
+
+(C:\TeX\local\tex\latex\texpower\tpsettings.cfg))
+No file simpledemo.aux.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+
+Package texpower Warning: Package hyperref not loaded.
+(texpower)                Page transitions disabled on input line 23.
+
+
+Package texpower Warning: Package hyperref not loaded.
+(texpower)                Page duration disabled on input line 23.
+
+
+Package texpower Warning: Package soul not loaded.
+(texpower)                Command \hidetext disabled on input line 23.
+
+
+Package texpower Warning: Package soul not loaded.
+(texpower)                Command \highlighttext disabled on input line 23.
+
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <20.74> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 27.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 27.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 27.
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <14.4> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 27.
+[1{psfonts.map}]
+No file simpledemo.toc.
+\tf@toc=\write3
+[1] [1] [1] [1] [1] [1
+
+] [2]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 105.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 105.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 105.
+ [2] [2] [2] [2] [2] [2] [2] [2] [2] [2] [2]
+[2] [2] [2] [2] [2] [2] [2] [2] [2] [2] [2] [2] [2] [2] [2] [2] [2] [2]
+[2] [2] [2] [2] [2] [2] [2] [2] [2] [2] [2]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 190.
+ [2] [2] [2] [2] [2] [2] [2]
+[2] (simpledemo.aux) )<cmr10.pfb><cmmi10.pfb><line10.pfb><cmr6.pfb><cmmi6.pfb><
+cmsy8.pfb><cmsy10.pfb><cmmi12.pfb><cmr8.pfb><cmex10.pfb><cmmi8.pfb><cmbx12.pfb>
+<cmr12.pfb><cmtt12.pfb><cmr17.pfb>
+Output written on simpledemo.pdf (56 pages, 128616 bytes).

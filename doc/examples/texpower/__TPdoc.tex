@@ -1,0 +1,1201 @@
+%-----------------------------------------------------------------------------------------------------------------
+% File: __TPdoc.tex
+%
+% Code for the (preliminary) documentation of the TeXPower bundle.
+% 
+% This file is input by others. Don't compile it separately.
+%
+%-----------------------------------------------------------------------------------------------------------------
+% Autor: Stephan Lehmke <Stephan.Lehmke@cs.uni-dortmund.de>
+%
+% v0.0.1 Mar 20, 2000: First version for the pre-alpha release of TeXPower.
+%
+% v0.0.2 Mar 29, 2000: Added `usage and basic options' section.
+%
+% v0.0.3 Apr 04, 2000: Added `Color Emphasis and Highlighting' section.
+%
+% v0.0.4 Apr 12, 2000: A lot of small additions in preparation of the update to TeXpower v0.0.7.
+%
+% v0.0.5 May 31, 2000: Updated for TeXpower v0.0.8.
+%
+% v0.0.6 Jun 09, 2000: Some updates for TeXpower v0.0.8b.
+%
+% v0.0.6a Jun 13, 2000: Some updates for TeXpower v0.0.8c.
+%
+% v0.0.6b Jun 23, 2000: Some updates for TeXpower v0.0.8e.
+%
+
+%-----------------------------------------------------------------------------------------------------------------
+%
+\makeslidetitle
+{%
+  (Preliminary) Documentation%
+  \thanks{Documentation v0.0.6b of June 23, 2000 for \TeX Power v0.0.8f of June 27, 2000 (pre-alpha).}%
+  }%
+
+The \TeX Power bundle contains style and class files for creating dynamic online presentations with \LaTeX. 
+
+The heart of the bundle is the package \code{texpower.sty} which implements some commands for presentation effects. This
+includes setting page transitions, color highlighting and displaying pages incrementally.
+
+For this \emph{pre-alpha} release, the documentation does not yet provide a full manual. For finding out how to achieve
+special effects (as shown in the \nameref{Sec:Ex}), please look at the comments inside the \code{.tex} files in the
+\code{doc} directory and inside the file \code{texpower.sty} to find out what's going on.
+
+\newslide
+
+For your own first steps with \TeX Power, the simple demo file \code{doc/simpledemo.tex} is the best starting
+place. There, some basic applications of the dynamic features provided by the \code{texpower} package are
+demonstrated. You can make your own dynamic presentations by modifying that demo to your convenience.
+
+\code{doc/simpledemo.tex} uses the \code{article} document class for maximum compatibility. There are other simple demos
+named \code{slidesdemo}, \code{foilsdemo}, \code{seminardemo}, \code{pp4sldemo}, \code{pdfslidemo}, \code{pdfscrdemo},
+\code{ifmslidemo} which demonstrate how to combine \TeX Power with the most popular presentation-making document classes
+and packages.
+
+\newslide
+
+The other, more sophisticated examples in the \code{doc} directory are to demonstrate the expressive power of the
+\code{texpower} package. Look at the commented code of these examples to find out how to achieve special effects and
+create your own presentation effects with \TeX Power.
+  
+For the first \emph{alpha} release, this documentation will be completed. For the first \emph{beta} release, when the
+code is a little more stable, the \code{texpower} package will be made into a properly documented \code{.dtx} file.
+
+\newslide
+
+%-----------------------------------------------------------------------------------------------------------------
+%
+\section{Usage and general options}
+The \code{texpower} package is loaded by putting
+\begin{center}
+  \present{\commandapp{usepackage}{texpower}}
+\end{center}
+into the preamble of a document.
+  
+There are no specific restrictions as to which document classes can be used. 
+
+It should be stressed that \TeX Power is \underl{not} (currently) a complete presentation package. It just adds dynamic
+presentation effects (and some other gimmicks specifically interesting for dynamic presentations) and should always be
+combined with a document class dedicated to designing presentations (or a package like
+\href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/pdfslide.html}{\code{pdfslide}}).
+  
+Some of the presentation effects created by \code{texpower} require special capabilities of the viewer which is used for
+presenting the resulting document. The target for the development of \code{texpower} has so far been \concept{Adobe
+  Acrobat\textsuperscript{\textregistered} Reader}, which means the document should (finally) be produced in \code{pdf}
+format.
+  
+There are no specific restrictions as to which way the \code{pdf} format is produced. All documents from the \code{doc}
+directory have been tested with pdf\LaTeX{} and standard \LaTeX, using \code{dvips} and \concept{Adobe
+  Acrobat\textsuperscript{\textregistered} Distiller} for generating \code{pdf}.
+  
+\newslide
+  
+\subsection{General options}\label{Sec:GenOpt}
+\begin{description}
+\item[\present{option: \code{display}}.] Enable `dynamic' features. If not set, it is assumed that the document is to be
+  printed, and all commands for dynamic presentations, like \macroname{pause} or \macroname{stepwise} have no effect.
+
+\item[\present{option: \code{printout} (default)}.] Disable `dynamic' features. As this is the default behaviour,
+  setting this option explicitly is useful only if the option \code{display} is set by default for instance in the
+  \code{tpoptions.cfg} file (see section \ref{Sec:Config}).
+
+\item[\present{option: \code{verbose}}.] Output some administrative info.
+\end{description}
+
+\subsection{Side effects of page contents duplication}\label{Sec:Dupl}
+In the implementation of the \macroname{pause} and \macroname{stepwise} commands, it is neccessary to duplicate some
+material on the page. 
+
+This way, not only `visible' page contents will be duplicated, but also some `invisible' control code stored in
+\concept{whatsits} (see the \TeX book for an explanation of this concept). Duplicating whatsits can lead to undesirable
+side effects. 
+
+For instance, a \macroname{section} command creates a whatsit for writing the table of contents entry. Duplicating this
+whatsit will also duplicate the toc entry.
+
+So, whatsit items effecting file access are inhibited when duplicating page material.
+
+\newslide
+
+A second type of whatsits is created by \TeX's \macroname{special} command which is used for instance for color
+management. Some drivers, like \code{dvips} and \code{textures}, use a color stack which is controlled by
+\macroname{special} items included in the dvi file. When page contents are duplicated, then these \macroname{special}s
+are also duplicated, which can seriously mess up the color stack.
+
+\code{texpower} implements a `color stack correction' method by maintaining a stack of color corrections, which should
+counteract this effect. Owing to potential performance problems, this method is turned off by default. 
+\begin{description}
+\item[\present{option: \code{fixcolorstack}}] switches on color stack correction. Use it if you experience strange color
+  switches in your document.
+\end{description}
+
+\newslide
+
+\subsection{Setting the base font}
+\code{texpower} offers two options for setting the base font of the document to one that is `bolder' than the default
+computer modern roman (cmr). This might be neccessary if readability is reduced by using e.\,g.\ colored backgrounds.
+
+Note that the support offered by \code{texpower} is rather primitive. If you're using a document class or package which
+offers more sophisticated support for this kind of thing, use that by all means.
+
+Further, there are packages like \code{cmbright} or \code{beton} which change the whole set of fonts to something less
+fragile than cmr.
+
+\begin{description}
+\item[\present{option: \code{sans}}] Make the sans serif font the basic text font. By default, this is computer modern
+  sans serif (cmss). If you are using the package \code{pslatex}, this is Helvetica. For other packages changing the
+  complete set of text fonts, this may be a different font.
+  
+\item[\present{option: \code{slifonts}}] Change the the text and math fonts to use the ``slifonts'' collection by
+  \name{L.\,Lamport}. The main text font is then lcmss.
+\end{description}
+
+\newslide
+
+\subsection{Switches}
+There are some boolean registers provided and set automatically by \code{texpower}.
+
+\begin{description}
+\item[\present{boolean: \code{psspecialsallowed}}] True if PostScript\textsuperscript{\textregistered} specials may be
+  used.
+  
+  \code{texpower} tries to find out whether or not PostScript\textsuperscript{\textregistered} specials may be used in
+  the current document. For instance, pdf\LaTeX{} can't interpret arbitrary specials. This switch is set automatically
+  and can be used inside a document to enable/disable parts which need PostScript\textsuperscript{\textregistered}
+  specials.
+
+\newslide
+
+\item[\present{boolean: \code{display}}] True if \code{display} option was given.
+
+  This switch indicates whether `dynamic' features of \code{texpower} are enabled. Use it inside your document
+  to distinguish between the `presented' and the printed version of your document.
+  
+\item[\present{boolean: \code{TPcolor}}] True if any of the color highlighting options (see section
+  \ref{Sec:ColorEmphasis}) were given, or if the \code{color} package was loaded before \code{texpower}.
+  
+  This switch indicates whether `color' features of \code{texpower} are enabled (compare section
+  \ref{Sec:ColorEmphasis}). You can use it inside your document to distinguish between a `colored' and a `monochrome'
+  version of your document.
+\end{description}
+
+\newslide
+
+\subsection{Configuration files}\label{Sec:Config}
+\code{texpower} loads two configuration files (if present):
+\begin{description}
+\item[\present{file: \code{tpoptions.cfg}}] is loaded before options are processed. Can be used to set default options
+  in a system-specific way. See the comments inside the file \code{tpoptions.cfg} which is part of the \TeX Power bundle
+  for instructions.
+  
+\item[\present{file: \code{tpsettings.cfg}}] is loaded at the end of \code{texpower}. Here, you can do some
+  system-specific settings of e.\,g.\ standard colors (see section \ref{Sec:ColorEmphasis}). See the comments inside the
+  file \code{tpsettings.cfg} which is part of the \TeX Power bundle for instructions.
+\end{description}
+
+\newslide
+
+\subsection{Dependencies on other packages}
+\code{textpower} always loads the packages \code{ifthen} and \code{calc}, as the extended command syntax provided by
+these is indispensable for the macros to work. They are in the \code{base} and \code{tools} area of the \LaTeX{}
+distribution, respectively, so I hope they are available on all systems.
+
+Furthermore, \code{texpower} loads the package \code{color} if any color-specific options are set (see section
+\ref{Sec:ColorEmphasis}).
+
+Further packages are \emph{not} loaded automatically by \code{texpower} to avoid incompatibilities, although some
+features of \code{texpower} are enabled \emph{only} if a certain package is loaded. If you wish to use these features,
+you are responsible for loading the respective package yourself. 
+
+If some necessary package is \emph{not} loaded, \code{texpower} will issue a warning and disable the respective
+features.
+
+The following packages are neccessary for certain features of \code{texpower}:
+\begin{description}
+\item[\present{package: \code{hyperref}}] is neccessary for page transition effects to work (see section
+  \ref{Sec:PageTrans}). 
+  
+  In particular, the \macroname{pageDuration} (see section \ref{Sec:PageDuration}) command only works if the version of
+  hyperref loaded is at least v6.70a (where the \code{pdfpageduration} key was introduced).
+  
+  Commands which work only when \code{hyperref} is loaded are marked with \textbf{\textsf{h}} in the description.
+  
+\newslide
+
+\item[\present{package: \code{soul}}] is neccessary for the implementation of the commands \macroname{hidetext} and
+  \macroname{highlighttext} (see section \ref{Sec:displaycustom}).
+  
+  Commands which work only when \code{soul} is loaded are marked with \textbf{\textsf{s}} in the description.
+\end{description}
+
+\newslide
+
+\subsection{What else is part of the \TeX Power bundle?}
+Besides the package \code{texpower} (which is described here), there is one more package and one document class in the
+\TeX Power bundle which so far have no documentation of their own. They are quite trivial at the moment and will be
+described in this section until they are turned into \code{dtx} files producing their own documentation.
+
+There is a \code{doc} directory in the \TeX Power bundle which contains (besides this documentation) some examples and
+demos for \TeX Power. See the file \code{00readme.txt} which is part of the \TeX Power bundle for a short description of
+all files.
+
+\minisec{The document class \code{powersem}}
+This is planned to provide a more `modern' version of \code{seminar} which can be used for creating dynamic
+presentations. 
+
+Currently, this document class doesn't do much more than load \code{seminar} and apply some fixes, but it is planned to
+add some presentation-specific features (like navigation panels).
+
+\newslide
+
+There are three new options which are specific for \code{powersem}, all other options are passed to \code{seminar}:
+\begin{description}
+\item[\present{option: \code{display}}] Turns off all features of \code{seminar} (notes, vertical centering of slides)
+  which can disturb dynamic presentations.
+  
+\item[\present{option: \code{KOMA}}] Makes \code{seminar} load \code{scrartcl} (from the KOMA-Script bundle) instead of
+  \code{article} as its base class. All new features of \code{scrartcl} are then available also for slides.
+  
+\newslide
+
+\item[\present{option: \code{calcdimensions}}] \code{seminar} automatically calculates the slide dimensions
+  \macroname{slidewidth} and \macroname{slideheight} only for the default \code{letter} and for its own option
+  \code{a4}. For all the other paper sizes which are possible with the \code{KOMA} option, the slide dimensions are not
+  calculated automatically. 
+  
+  The \code{calcdimensions} option makes \code{powersem} calculate the slide dimensions automatically from paper size
+  and margins.
+\end{description}
+
+There is one change in \code{powersem} which will lead to incompatibilities with \code{seminar}. \code{seminar} has the
+unfortunate custom of \emph{not} exchanging \macroname{paperwidth} and \macroname{paperheight} when making landscape
+slides, as for instance \code{typearea} and \code{geometry} do.
+
+This leads to problems with setting the paper size for \code{pdf} files, as done for instance by the \code{hyperref}
+package. 
+
+\code{powersem} effectively turns off \code{seminar}'s papersize management and leaves this to the base class (with the
+pleasant side effect that you can use e.\,g.\ \commandapp[KOMA,a0paper]{documentclass}{powersem} for making posters). 
+
+In consequence, the \code{portrait} option of \code{seminar} is turned on by \code{powersem} to avoid confusing
+\code{seminar}. You have to explicitly use the \code{landscape} option (and a base class or package which understands
+this option) to get landscape slides with powersem.
+
+\minisec{The package \code{fixseminar}}
+Unfortunately, there are some fixes to seminar which can \emph{not} be applied in \code{powersem} because they have to
+be applied after \code{hyperref} is loaded (if this package should be loaded).
+
+The package \code{fixseminar} applies these fixes, so this package should be loaded after \code{hyperref} (if
+\code{hyperref} is loaded at all, otherwise \code{fixseminar} can be loaded anywhere in the preamble).
+
+\newslide
+
+It applies two fixes:
+\begin{itemize}
+\item In case \code{pdflatex} is being run, the lengths \macroname{pdfpageheight} and \macroname{pdfpagewidth} have to
+  be set in a `magnification-sensitive' way.
+
+\item \code{hyperref} introduces some code at the beginning of every page which can produce spurious vertical space,
+  which in turn disturbs building dynamic pages. This code is `fixed' so it cannot produce vertical space.
+\end{itemize}
+
+
+\newslide
+
+%-----------------------------------------------------------------------------------------------------------------
+%
+\section{The \macroname{pause} command}\label{Sec:pause}
+\present{\macroname{pause}} is derived from the \macroname{pause} command from the package
+\href{http://www-sp.iti.informatik.tu-darmstadt.de/software/ppower4/pp4sty.zip}{\code{texpause}} which is part of the
+\href{http://www-sp.iti.informatik.tu-darmstadt.de/software/ppower4/}{PPower4 suite} by
+\href{mailto:guntermann@iti.informatik.tu-darmstadt.de}{Klaus Guntermann}.
+  
+  It will ship out the current page, start a new page and copy whatever was on the current page onto the new page, where
+  typesetting is resumed.
+
+  % Here, let's do a little demo
+  \pause
+
+  This will create the effect of a \concept{pause} in the presentation, i.\,e.\ the presentation stops because the
+  current page ends at the point where the \macroname{pause} command occurred and is resumed at this point when the
+  presenter switches to the next page. 
+
+  \newslide
+
+  \minisec{Things to pay attention to}
+  \begin{enumerate}
+  \item \macroname{pause} should appear in \concept{vertical mode} only, i.\,e.\ between paragraphs or at places where
+    ending the current paragraph doesn't hurt.
+    
+  \item This means \macroname{pause} is forbidden in all \concept{boxed} material (including \code{tabular}),
+    \concept{headers/footers}, and \concept{floats}.
+
+  \item \macroname{pause} shouldn't appear either in environments which have to be \emph{closed} to work properly, like
+    \code{picture}, \code{tabbing}, and (unfortunately) environments for \concept{aligned math formulas}.
+
+  \item \macroname{pause} does work in all environments which mainly influence paragraph formatting, like \code{center},
+    \code{quote} or all \concept{list} environments.
+
+    \newslide
+
+  \item \macroname{pause} doesn't really have problems with automatic page breaking, but beware of \emph{overfull}
+    pages/slides. In this case, it may occur that only the last page(s)/slide(s) of a sequence are overfull, which
+    changes vertical spacing, making lines `wobble' when switching to the last page/slide of a sequence.
+    
+    \newslide
+    
+  \item The duplication of page material done by \macroname{pause} can lead to unwanted side effects. See section
+    \ref{Sec:Dupl} for further explanations. In particular, if you should experience strange color switches when using
+    \macroname{pause} (and you are \underl{not} using \code{pdftex}), turn on color stack correction with the option
+    \code{fixcolorstack}.
+
+  \end{enumerate}
+
+  A lot of the restrictions for the use of pause can be avoided by using \macroname{stepwise} (see next section).
+  
+  \newslide
+
+  %-----------------------------------------------------------------------------------------------------------------
+  %
+  \section{The \macroname{stepwise} command}
+  \present{\commandapp{stepwise}{\carg{contents}}} is a command for displaying some part of a \LaTeX{} document (which
+  is contained in \carg{contents}) `step by step'. As of itself, \macroname{stepwise} doesn't do very much. If
+  \carg{contents} contains one or more constructs of the form \present{\commandapp{step}{\carg{stepcontents}}}, the
+  following happens:
+  \begin{enumerate}
+  \item The current contents of the page are saved (as with \macroname{pause}).
+
+  \item As many pages as there are \macroname{step} commands in \carg{contents} are produced.
+
+    Every page starts with what was on the current page when \macroname{stepwise} started.
+
+    \newslide
+    
+    The first page also contains everything in \carg{contents} which is \emph{not} in \carg{stepcontents} for any
+    \macroname{step} command.
+
+    The second page additionally contains the \carg{stepcontents} for the \emph{first} \macroname{step} command, and so
+    on, until all \carg{stepcontents} are displayed.
+
+  \item When all \carg{stepcontents} are displayed, \macroname{stepwise} ends and typesetting is resumed (still on the
+    current page).
+  \end{enumerate}
+  
+  \parstepwise{This will create the effect that the \macroname{step} commands are executed `\step{step} \step{by}
+    \step{step}'.}
+
+  \newslide
+
+  \minisec{Things to pay attention to}
+  \begin{enumerate}
+  \item \macroname{stepwise} should appear in \concept{vertical mode} only, i.\,e.\ between paragraphs, just like
+    \macroname{pause}.
+
+  \item Don't put \macroname{pause} or nested occurrences of \macroname{stepwise} into \carg{contents}.
+    
+  \item Structures where \macroname{pause} does not work (like \code{tabular} or aligned equations) can go
+    \emph{completely} into \carg{contents}, where \macroname{step} can be used freely (see \nameref{Sec:Ex}).
+    
+  \item As \carg{contents} is read as a macro argument, constructs involving \concept{catcode} changes (like
+    \macroname{verb} or language switches) won't work in \carg{contents}. Using a suggestion by \name{Ross
+      Moore}, I hope to remedy this until the \emph{alpha} release.
+
+\newslide
+
+  \item Several instances of \macroname{stepwise} may occur on one page, also combined with \macroname{pause} (outside
+    of \carg{contents}).
+    
+    But beware of page breaks in \carg{contents}. This will really mess things up. 
+    
+    Overfull pages/slides are also a problem, just like with \macroname{pause}. See the description of \macroname{pause}
+    (section \ref{Sec:pause}) concerning this and also concerning side effects of duplicating page material.
+
+  \item \macroname{step} can go in \carg{stepcontents}. The order of execution of \macroname{step} commands is just the
+    order in which they appear in \carg{contents}, independent of nesting within each other.
+    
+    \newslide
+    
+  \item As \carg{contents} is executed several times, \LaTeX{} constructs changing \concept{global counters}, accessing
+    \concept{files} etc.\ are problematic. This concerns sections, numbered equations, labels, hyperlinks and the like.
+    
+    Counters are taken care of explicitly by \macroname{stepwise}, so equation numbers are no problem. 
+
+    Commands accessing toc files and such (like \macroname{section}) are taken care of by the whatsit suppression
+    mechanism (compare section \ref{Sec:Dupl}).
+
+    Labels and hyperlinks work sort of (giving a lot of warnings though).
+
+    I will try to remedy remaining problems until the first \emph{alpha} release.
+  \end{enumerate}
+
+    \newslide
+
+  \subsection{\macroname{boxedsteps} and \macroname{nonboxedsteps}}\label{Sec:boxedsteps}%
+  By default, \carg{stepcontents} belonging to a \macroname{step} which is not yet `active' are ignored altogether. This
+  makes it possible to include e.\,g.\ tabulators \code{\&} or line breaks into \carg{stepcontents} without breaking
+  anything.
+  
+  Sometimes, however, this behaviour is undesirable, for instance when stepping through an equation `from outer to
+  inner', or when filling in blanks in a paragraph. Then, the desired behaviour of a \macroname{step} which is not yet
+  `active' is to create an appropriate amount of \emph{blank space} where \carg{stepcontents} can go as soon as it is
+  activated.
+
+  \newslide
+  
+  The simplest and most robust way of doing this is to create an empty box (aka \macroname{phantom}) with the same
+  dimensions as the text to be hidden.
+
+  This behaviour is toggled by the following commands. See section \ref{Sec:displaycustom} for more sophisticated
+  (albeit more fragile) variants.
+  \begin{description}
+  \item[\present{\macroname{boxedsteps}}] makes \macroname{step} create a blank box the size of \carg{stepcontents} when
+    inactive and put \carg{stepcontents} into a box when active.
+  \item[\present{\macroname{nonboxedsteps}}] makes \macroname{step} ignore \carg{stepcontents} when inactive and leave
+    \carg{stepcontents} alone when active (default).
+  \end{description}
+
+  \newslide
+
+  \minisec{Things to pay attention to}
+  \begin{enumerate}
+  \item The settings effected by \macroname{boxedsteps} and \macroname{nonboxedsteps} are \emph{local}, i.\,e.\ whenever
+    a group closes, the setting is restored to its previous value.
+
+  \item Putting stuff into boxes can break things like tabulators (\code{\&}). It can also mess up math spacing, which
+    then has to be corrected manually. Compare the following examples:
+
+    \parstepwise{%
+      \begin{displaymath}
+        \left(\frac{a+b}{c}\right)\qquad\left(\frac{a\step{+b}}{c}\right)\qquad\left(\frac{a\restep{{}+b}}{c}\right)
+      \end{displaymath}%
+      }%
+  \end{enumerate}
+
+  \newslide
+
+  \subsection{Custom versions of \macroname{stepwise}}%
+  Sometimes, it might happen that vertical spacing is different on every page of a sequence generated by
+  \macroname{stepwise}, making lines `wobble'.
+
+  This is caused by interactions between different ways vertical spacing is added to the page. Hopefully, problems
+  caused this way can be reduced until the first \emph{alpha} release.
+  
+  \newslide
+
+  There are two custom versions of \macroname{stepwise} which should produce better vertical spacing.
+  \begin{description}
+  \item[\present{\commandapp{liststepwise}{\carg{contents}}}] works exactly like \macroname{stepwise}, but adds an
+    `invisible rule' before \carg{contents}. Use for list environments and aligned equations.
+  \item[\present{\commandapp{parstepwise}{\carg{contents}}}] works like \macroname{liststepwise}, but
+    \macroname{boxedsteps} is turned on by default. Use for texts where \macroname{step}s are to be filled into blank
+    spaces.
+  \end{description}
+
+  \newslide
+
+  \subsection{Starred versions of \macroname{stepwise} commands}\label{Sec:StarredStepwise}%
+  Usually, the first page of a sequence produced contains \emph{only} material which is \emph{not} part of any
+  \carg{stepcontents}. The first \carg{stepcontents} are displayed on the second page of the sequence.
+
+  For special effects (see example \ref{Sec:Exhl}), it might be desirable to have the first \carg{stepcontents} active
+  even on the first page of the sequence.
+
+  All variants of  \macroname{stepwise} have a starred version (e.\,g.\ \macroname{stepwise*}) which does exactly that.
+
+  \newslide
+
+  \subsection{The optional argument of \macroname{stepwise}}%
+  Every variant of \macroname{stepwise} takes an optional argument, like this
+  \begin{center}
+    \present{\commandapp[\carg{settings}]{stepwise}{\carg{contents}}}.
+  \end{center}
+  \carg{settings} will be placed right before the internal loop which produces the sequence of pages.  It can 
+  contain settings of parameters which modify the behaviour of \macroname{stepwise} or \macroname{step}. \carg{settings}
+  is placed inside a group so all changes are local to this call of \macroname{stepwise}.
+
+  Some internal macros and counters which can be adjusted are explained in the following.
+
+  \newslide
+
+  \subsection{Customizing the way \carg{stepcontents} is diplayed}\label{Sec:displaycustom}%
+  Internally, there are three macros (taking one argument each) which control how \carg{stepcontents} is displayed:
+  \macroname{displaystepcontents}, \macroname{hidestepcontents}, and \macroname{activatestep}. Virtually, every
+  \commandapp{step}{\carg{stepcontents}} is replaced by
+  \begin{description}
+  \item[\present{\commandapp{hidestepcontents}{\carg{stepcontents}}}]\mbox{}\\ when this step is not yet active.
+  \item[\present{\commandapp{displaystepcontents}{\commandapp{activatestep}{\carg{stepcontents}}}}] when this step is
+    activated \emph{for the first time}.
+  \item[\present{\commandapp{displaystepcontents}{\carg{stepcontents}}}]\mbox{}\\
+    when this step has been activated before.
+  \end{description}
+  
+  By redefining these macros, the behaviour of \macroname{step} is changed accordingly. You can redefine them inside
+  \carg{contents} to provide a change affecting one \macroname{step} only, or in the optional argument of
+  \macroname{stepwise} to provide a change for all \macroname{step}s inside \carg{contents}.
+  
+  In the \nameref{Sec:Ex}, it is demonstrated how special effects can be achieved by redefining these macros.
+
+  \macroname{activatestep} is set to \macroname{displayidentical} by default, the default settings of
+  \macroname{hidestepcontents} and \macroname{displaystepcontents} depend on whether \macroname{boxedsteps} or
+  \macroname{nonboxedsteps} (default) is used.
+  
+  \newslide
+
+  \code{texpower} offers nine standard definitions.
+
+  For interpreting \macroname{displaystepcontents}:
+  \begin{description}
+  \item[\present{\macroname{displayidentical}}] Simply expands to its argument. The same as \LaTeX s
+    \macroname{@ident}. Used by \macroname{nonboxedsteps} (default).
+
+  \item[\present{\macroname{displayboxed}}] Expands to an \macroname{mbox} containing its argument. Used by
+    \macroname{boxedsteps}.
+  \end{description}
+
+  \newslide
+
+  For interpreting \macroname{hidestepcontents}:
+  \begin{description}
+  \item[\present{\macroname{hideignore}}] Expands to nothing. The same as \LaTeX s \macroname{@gobble}. Used by
+    \macroname{nonboxedsteps} (default).
+
+  \item[\present{\macroname{hidephantom}}] Expands to a \macroname{phantom} containing its argument. Used by
+    \macroname{boxedsteps}.
+    
+  \item[\present{\macroname{hidevanish}}] In a colored document, makes its argument `vanish' by setting all colors to
+    \macroname{vanishcolor} (defaults to \code{pagecolor}; compare section \ref{Sec:Colorcommands}). Note that this will
+    give weird results with structures backgrounds.
+
+    For monochrome documents, there is no useful interpretation for this command, so it is disabled.
+
+    \newslide
+    
+  \item[{\present[s]{\macroname{hidetext}}}] Produces blank space of the same dimensions as the space that would be
+    occupied if its argument would be typeset in the current paragraph. Respects automatic hyphenation and line breaks.
+    
+    This command needs the \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/soul.html}{\code{soul}} package
+    to work, which is not loaded by \code{texpower} itself. Consult the documentation of
+    \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/soul.html}{\code{soul}} concerning restrictions on
+    commands implemented using \code{soul}. If you don't load the \code{soul} package yourself, there is no useful
+    definition for this command, so it defaults to \macroname{hidephantom}.
+
+    \newslide
+    
+  \item[\present{\macroname{hidedimmed}}] In a colored document, displays its argument with dimmed colors (compare
+    section \ref{Sec:Colors}). Note that this doesn't make the argument completely invisible.
+
+    For monochrome documents, there is no useful interpretation for this command, so it is disabled.
+  \end{description}
+
+  \newslide
+
+  For interpreting \macroname{activatestep}:
+  \begin{description}
+  \item[\present{\macroname{highlightboxed}}] If the \code{colorhighlight} option (see section \ref{Sec:ColorEmphasis})
+    is set, expands to a \highlightboxed{box with colored background} containing its argument. Otherwise, expands to an
+    \macroname{fbox} containing its argument. It is made sure that the resulting box has the same dimensions as the
+    argument (the outer frame may overlap surrounding text).
+    
+    There is a new length register \present{\macroname{highlightboxsep}} which acts like \macroname{fboxsep} for the
+    resulting box and defaults to \code{0.5\macroname{fboxsep}}.
+    
+    \newslide
+    
+  \item[{\present[s]{\macroname{highlighttext}}}] If the \code{colorhighlight} option (see section
+    \ref{Sec:ColorEmphasis}) is set, puts its argument \highlighttext{on colored background}. Otherwise, underlines its
+    argument. It is made sure that the resulting text has the same dimensions as the argument (the outer frame may
+    overlap surrounding text).
+    
+    \present{\macroname{highlightboxsep}} is used to determine the extent of the coloured box(es) used as background. 
+    
+    This command needs the \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/soul.html}{\code{soul}} package
+    to work (compare the description of \macroname{hidetext}). If you don't load the \code{soul} package yourself, there
+    is no useful definition for this command, so it is disabled.
+    
+    \newslide
+    
+  \item[\present{\macroname{highlightenhanced}}] In a colored document, displays its argument \highlightenhanced{with
+      enhanced colors} (compare section \ref{Sec:Colors}).
+
+    For monochrome documents, there is no useful interpretation for this command, so it is disabled.
+  \end{description}
+
+  \newslide
+
+  \subsection{Variants of \macroname{step}}
+  There are a couple of custom versions of \macroname{step} which make it easier to achieve special effects needed
+  frequently.
+  \begin{description}
+  \item[\present{\macroname{bstep}}.] Like \macroname{step}, but is \emph{always} boxed (see section
+    \ref{Sec:boxedsteps}). \commandapp{bstep}{\carg{stepcontents}} is implemented in principle as
+    \code{\{\macroname{boxedsteps}\commandapp{step}{\carg{stepcontents}}\}}.
+    
+    In aligned equations where \macroname{stepwise} is used for being able to put tabulators into \carg{stepcontents},
+    but where nested occurrences of \macroname{step} should be boxed to assure correct sizes of growing braces or such,
+    this variant of \macroname{step} is more convenient than using \macroname{boxedsteps} for every nested occurrence
+    of \macroname{step}.
+    
+  \item[\present{\commandapp{switch}{\carg{ifinactive}\}\{\carg{ifactive}}}] is a variant of \macroname{step} which,
+    instead of making its argument appear, switches between \carg{ifinactive} and \carg{ifactive} when activated.
+
+    In fact, \commandapp{step}{\carg{stepcontents}} is in principle implemented by
+    \begin{tabbing}
+      \macroname{switch}\=\code{\{\commandapp{hidestepcontents}{\carg{stepcontents}}\}}\\
+      \>\code{\{\commandapp{displaystepcontents}{\carg{stepcontents}}\}}
+    \end{tabbing}
+    
+    This command can be used, for instance, to add an \macroname{underbrace} to a formula, which is difficult using
+    \macroname{step}. 
+    
+    Beware of problems when \carg{ifinactive} and \carg{ifactive} have different dimensions.
+
+    \newslide
+    
+  \item[\present{\macroname{dstep}}.] A variant of \macroname{step} which takes \underl{no} argument, but simply switches
+    colors to `dimmed' (compare section \ref{Sec:Colors}) if not active. Not that the scope of this color change will
+    last until the next outer group closes. This command does nothing in a monochrome document.
+    
+  \item[\present{\macroname{vstep}}.] A variant of \macroname{step} which takes \underl{no} argument, but simply switches
+    all colors to \macroname{vanishcolor} (defaults to \code{pagecolor}; compare section \ref{Sec:Colorcommands}) if not
+    active. Not that the scope of this color change will last until the next outer group closes. This command does
+    nothing in a monochrome document.
+    
+    \newslide
+    
+  \item[\small\present{\macroname{restep}}, \present{\macroname{rebstep}}, \present{\macroname{reswitch}},
+    \present{\macroname{redstep}}, \present{\macroname{revstep}}.]\mbox{}\\
+    Frequently, it is desirable for two or more steps to appear at the same time, for instance to fill in arguments at
+    several places in a formula at once (see example \ref{Sec:ExEq}).
+    
+    \present{\commandapp{restep}{\carg{stepcontents}}} is identical with \commandapp{step}{\carg{stepcontents}}, but is
+    activated at the same time as the previous occurrence of \macroname{step}.
+    
+    \present{\macroname{rebstep}}, \present{\macroname{reswitch}}, \present{\macroname{redstep}}, and
+    \present{\macroname{revstep}} do the same for \macroname{bstep}, \macroname{switch}, \macroname{dstep}, and
+    \macroname{vstep}.
+  \end{description}
+
+  \newslide
+
+  \subsection{Optional arguments of \macroname{step}}%
+  Sometimes, letting two \macroname{step}s appear at the same time (with \macroname{restep}) is not the only desirable
+  modification of the order in which \macroname{step}s appear. \macroname{step}, \macroname{bstep} and
+  \macroname{switch} take two optional arguments for influencing the mode of activation, like this:
+  \begin{center}
+    \present{\commandapp[{\carg{activatefirst}][\carg{whenactive}}]{step}{\carg{stepcontents}}}.
+  \end{center}
+  Both \carg{activatefirst} and \carg{whenactive} should be conditions in the syntax of the \macroname{ifthenelse}
+  command (see the documentation of the
+  \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/ifthen.html}{\code{ifthen}} package for details).
+  
+  \newslide
+
+  \present{\carg{activatefirst}} checks whether this \macroname{step} is to be activated \emph{for the first time}. The
+  default value is \present{\commandapp{value}{step}=\commandapp{value}{stepcommand}} (see section \ref{Sec:Internals}
+  for a list of internal values). By using \commandapp{value}{step}=\carg{$n$}, this \macroname{step} can be forced to
+  appear as the $n$th one. See example \ref{Sec:ExPar} for a demonstration of how this can be used to make
+  \macroname{step}s appear in arbitrary order.
+  
+  \present{\carg{whenactive}} checks whether this \macroname{step} is to be considered active \emph{at all}. The default
+  behaviour is to check whether this \macroname{step} has been activated before (this is saved internally for every
+  step). See example \ref{Sec:ExFooling} for a demonstration of how this can be used to make \macroname{step}s appear
+  and disappear after a defined fashion.
+  
+  \minisec{If you know what you're doing\dots}
+  Both optional arguments allow two syntctical forms: 
+  \begin{enumerate}
+  \item enclosed in square brackets \code{[]} like explained above.
+  \item enclosed in braces \code{()}. In this case, \carg{activatefirst} and \carg{whenactive} are \emph{not} treated as
+    conditions in the sense of \macroname{ifthenelse}, but as conditionals like those used internally by \LaTeX. That
+    means, \carg{activatefirst} (when enclosed in braces) can contain arbitrary \TeX{} code which then takes two
+    arguments and expands to one of them, depending on whether the condition is fulfilled or not fulfilled. For
+    instance, \commandapp[{\carg{activatefirst}}]{step}{\carg{stepcontents}} could be replaced by
+    \macroname{step}\code{(\commandapp{ifthenelse}{\carg{activatefirst}})\{\carg{stepcontents}\}}.
+
+    See example \ref{Sec:ExBackwards} for a simple application of this syntax.
+  \end{enumerate}
+
+  Internally, the default for the treatment of \carg{whenactive} is \code{(\macroname{if@first@TP@true})}, where
+  \macroname{if@first@TP@true} is an internal condition checking whether this \macroname{step} has been activated before.
+
+  \newslide
+
+  \subsection{Finding out what's going on}\label{Sec:Internals}%
+  Inside \carg{settings} and \carg{contents}, you can refer to the following internal state variables which provide
+  information about the current state of the process executed by \macroname{stepwise}:
+  \begin{description}
+  \item[\present{counter: \code{firststep}}] The number from which to start counting steps (see counter \code{step}
+    below). Is $0$ by default and $1$ for starred versions (section \ref{Sec:StarredStepwise}) of \macroname{stepwise}.
+    You can set this in \carg{settings} for special effects (see example \ref{Sec:ExBackwards}).
+
+  \item[\present{counter: \code{totalsteps}}] The total number of \macroname{step} commands occurring in \carg{contents}.
+    
+    \newslide
+
+  \item[\present{counter: \code{step}}] The number of the current iteration, i.\,e.\ the number of the current page in
+    the sequence of pages produced by \macroname{stepwise}. Runs from \commandapp{value}{firststep} to
+    \commandapp{value}{totalsteps}.
+
+  \item[\present{counter: \code{stepcommand}}] The number of the \macroname{step} command currently being executed.
+
+  \item[\present{boolean: \code{firstactivation}}] \code{true} if this \macroname{step} is active for the first time,
+    \code{false} otherwise.
+
+  \item[\present{boolean: \code{active}}] \code{true} if this \macroname{step} is currently active, \code{false}
+    otherwise.
+  \end{description}
+  \code{stepcommand}, \code{firstactivation}, and \code{active} are useful only inside \carg{stepcontents}.
+
+
+  \newslide
+
+  \subsection{\macroname{afterstep}}%
+  It might be neccessary to set some parameters which affect the appearance of the \emph{page} (like page transitions)
+  inside \carg{stepcontents}. However, the \macroname{step} commands are usually placed deeply inside some structure, so
+  that all \emph{local} settings are likely to be undone by groups closing before the page is completed.
+
+  \present{\commandapp{afterstep}{\carg{settings}}} puts \carg{settings} right before the end of the page, after the
+  current step is performed.
+
+  \newslide
+
+  \minisec{Things to pay attention to}
+  \begin{enumerate}
+  \item There can be only one effective value for \carg{settings}. Every occurrence of \macroname{afterstep} overwrites
+    this value globally.
+    
+  \item \macroname{afterstep} will \emph{not} be executed in \carg{stepcontents} if the corresponding \macroname{step}
+    is not active, even if \carg{stepcontents} is displayed owing to a redefinition of \macroname{hidestepcontents},
+    like in example \ref{Sec:Exhl}.
+    
+  \item As \carg{settings} is put immediately before the page break, there is no means of restoring the original value
+    of whatever has been set. So if you set something via \macroname{afterstep} and want it to be reset in some later
+    step, you have to reset it explicitly with another call of \macroname{afterstep}.
+  \end{enumerate}
+  
+  %-----------------------------------------------------------------------------------------------------------------
+  %
+  \section{Page transitions and automatic advancing}\label{Sec:PageTrans}
+  \subsection{Page transitions}
+  I am indepted to \href{mailto:dongen@cs.ucc.ie}{\name{Marc van Dongen}} for allowing me to include a suite of commands
+  written by him and posted to the \href{http://www-sp.iti.informatik.tu-darmstadt.de/software/ppower4/}{PPower4}
+  mailing list which set page transitions (using
+  \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/hyperref.html}{\code{hyperref}s} \macroname{hypersetup}).
+
+  These commands work only if the \code{hyperref} package is loaded.
+
+    \newslide
+
+  The following page transition commands are defined:\pause
+  \begin{description}
+  \item[{\present[h]{\macroname{pageTransitionSplitHO}}}] Split Horizontally to the outside. \pageTransitionSplitHO\pause
+
+  \item[{\present[h]{\macroname{pageTransitionSplitHI}}}] Split Horizontally to the inside. \pageTransitionSplitHI\pause
+
+  \item[{\present[h]{\macroname{pageTransitionSplitVO}}}] Split Vertically to the outside. \pageTransitionSplitVO\pause
+
+  \item[{\present[h]{\macroname{pageTransitionSplitVI}}}] Split Vertically to the inside. \pageTransitionSplitVI\pause
+
+  \item[{\present[h]{\macroname{pageTransitionBlindsH}}}] Horizontal Blinds. \pageTransitionBlindsH\pause
+
+  \item[{\present[h]{\macroname{pageTransitionBlindsV}}}] Vertical Blinds. \pageTransitionBlindsV
+
+    \newslide
+
+  \item[{\present[h]{\macroname{pageTransitionBoxO}}}] Growing Box. \pageTransitionBoxO\pause
+
+  \item[{\present[h]{\macroname{pageTransitionBoxI}}}] Shrinking Box. \pageTransitionBoxI\pause
+    
+  \item[{\present[h]{\commandapp{pageTransitionWipe}{\carg{angle}}}}]\mbox{}\\
+    Wipe from one edge of the page to the facing edge.
+    
+    \stepwise
+    {%
+      \carg{angle} is a number between $0$ and $360$ which specifies the direction (in degrees) in which to wipe.
+    
+      Apparently, only the values \afterstep{\pageTransitionWipe{0}}$0$, \step{\afterstep{\pageTransitionWipe{90}}$90$,}
+      \step{\afterstep{\pageTransitionWipe{180}}$180$,} \step{$270$ are supported.}%
+      }%
+    \pageTransitionWipe{270}\pause
+
+  \item[{\present[h]{\macroname{pageTransitionDissolve}}}] Dissolve. \pageTransitionDissolve
+
+    \newslide
+    
+  \item[{\present[h]{\commandapp{pageTransitionGlitter}{\carg{angle}}}}]\mbox{}\\
+    Glitter from one edge of the page to the facing edge.
+    
+    \stepwise
+    {%
+      \carg{angle} is a number between $0$ and $360$ which specifies the direction (in degrees) in which to glitter.
+    
+      Apparently, only the values \afterstep{\pageTransitionGlitter{0}}$0$,
+      \step{\afterstep{\pageTransitionGlitter{270}}$270$,} \step{$315$ are supported.}%
+      }%
+    \pageTransitionGlitter{315}\pause
+
+  \item[{\present[h]{\macroname{pageTransitionReplace}}}] Simple Replace (the default). 
+  \end{description}
+
+  \pageTransitionReplace
+
+  \newslide
+
+  \minisec{Things to pay attention to}
+  \begin{enumerate}
+  \item The setting of the page transition is a property of the \emph{page}, i.~e.\ whatever page transition is in
+    effect when a page break occurs, will be assigned to the corresponding pdf page.
+    
+  \item Unfortunately, the \concept{scope} of the setting of the page transition achieved by the
+    \macroname{pageTransition\dots} commands (via \macroname{hypersetup}) seems to be dependent on the driver used\dots
+    
+    This means, depending on the driver employed (i.\,e.\ \code{pdfmark} or \code{pdftex}), the setting of the page
+    transition will be undone when a group ends, or it will be valid until the end of the document if you don't
+    explicitly set another page transition.
+    
+    This means, if you want your documents to work with different drivers, you have to take \emph{both} behaviours into
+    account:
+    \begin{itemize}
+    \item Make sure no \LaTeX{} environment is ended between a \macroname{pageTransition} setting and the next page
+      break. In particular, in \carg{stepcontents}, \macroname{afterstep} should be used (see example \ref{Sec:ExPic}).
+    \item If you want the defalt behaviour (Replace) back, set it explicitly with \macroname{pageTransitionReplace}.
+    \end{itemize}
+
+  \item Setting page transitions works well with \macroname{pause}. Here, \macroname{pause} acts as a page break,
+    i.\,e.\ a different page transition can be set before every occurrence of \macroname{pause}.
+  \end{enumerate}
+  
+  \newslide
+
+  \subsection{Automatic advancing of pages}\label{Sec:PageDuration}
+  If you have loaded a sufficiently new version of the
+  \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/hyperref.html}{\code{hyperref}} package (which allows to
+  set \code{pdfpageduration}), then the following command is defined which enables automatic advancing of \code{pdf}
+  pages.
+
+  \present[h]{\commandapp{pageDuration}{\carg{dur}}} causes pages to be advanced automatically every \carg{dur}
+  seconds. \carg{dur} should be a non-negative fixed-point number.
+
+  \pageDuration{2}\pause
+
+  Depending on the \code{pdf} viewer, this will happen only in full-screen mode.
+
+  See example \ref{Sec:ExFooling} for a demonstration of this effect.
+
+  \stopAdvancing
+  
+  \newslide
+  
+  The same restrictions as for \concept{page transitions} apply. In particular, the page duration setting is undone (for
+  some drivers) by the end of a group, i.\,e.\ it is useless to set the page duration if a \LaTeX{} environment ends
+  before the next page break.
+  
+  There is no `neutral' value for \carg{dur} ($0$ means advance as fast as possible). You can make automatic advancing
+  stop by calling \commandapp{pageDuration}{}. \code{texpower} offers the custom command
+  \begin{center}
+    \present[h]{\macroname{stopAdvancing}}
+  \end{center}
+  to do this.
+
+  \newslide
+
+  %-----------------------------------------------------------------------------------------------------------------
+  %
+  \section{Color emphasis and highlighting}\label{Sec:ColorEmphasis}
+  \code{texpower} offers some support for text emphasis and highlighting with colors (instead of, say, font
+  changes). These features are enabled by the following options:
+  \begin{description}
+  \item[\present{option: \code{coloremph}}] Make \macroname{em} and \macroname{emph} switch colors instead of fonts.
+
+  \item[\present{option: \code{colormath}}] Color all mathematical formulae.
+    
+  \item[\present{option: \code{colorhighlight}}] Make new highlighting and emphasis commands defined by \code{texpower}
+    use colors.
+
+    \newslide
+
+  \item[\present{option: \code{whitebackground} (default)}] Set standard colors to match a white background color.
+
+  \item[\present{option: \code{lightbackground}}] Set standard colors to match a light (but not white) background color.
+
+  \item[\present{option: \code{darkbackground}}] Set standard colors to match a dark (but not black) background color.
+
+  \item[\present{option: \code{blackbackground}}] Set standard colors to match a black background color.
+  \end{description}
+  
+  The effect of the options \code{whitebackground}, \code{lightbackground}, \code{darkbackground}, and
+  \code{blackbackground} can also be achieved by the commands \macroname{whitebackground}, \macroname{lightbackground},
+  \macroname{darkbackground}, and \macroname{blackbackground}, respectively.
+  
+  \minisec{Things to pay attention to}
+  \begin{enumerate}
+  \item You need the \code{color} package to use any of the color features.
+
+  \item To implement the options \code{coloremph} and \code{colormath}, it is neccessary to redefine some \LaTeX{}
+    internals. This can lead to problems and incompatibilities with other packages. Use with caution.
+    
+  \item If the \code{colorhighlight} option is \emph{not} given, new highlighting and emphasis commands defined by
+    \code{texpower} are realized otherwise. Sometimes, however, there is no good alternative to colors, so different
+    emphasis commands can become disabled or indistinguishable.
+
+    \newslide
+
+  \item Because of font changes, emphasized or highlighted text can have different dimensions whether or not the options
+    \code{coloremph}, \code{colormath}, and \code{colorhighlight} are set. Prepare for different line and page breaks
+    when changing one of these options.
+    
+    \newslide
+
+  \item Color emphasis and highlighting is controlled by a set of defined colors for different emphasis and highlighting
+    elements (described in section \ref{Sec:Colors}). All these colors are redefined when one of the options
+    \code{whitebackground}, \code{lightbackground}, \code{darkbackground}, and \code{blackbackground} or one of the
+    commands \macroname{whitebackground}, \macroname{lightbackground}, \macroname{darkbackground}, and
+    \macroname{blackbackground} is given.
+    
+    These definitions represent standard settings; the colors can be redefined as convenient. See the documentation of
+    the \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/color.html}{\code{color}} package for details.
+  \end{enumerate}
+
+  \newslide
+
+  \subsection{New commands for emphasis and highlighting elements}\label{Sec:Colorcommands}
+  Some things like setting the page or text color, making emphasised text or math colored are done automatically when
+  the respective options are set. There are some additional new commands for creating emphasis and highlighting
+  elements.
+
+  \minisec{Concerning math:}
+  \begin{description}
+  \item[\present{\macroname{origmath}}] When the \code{colormath} option is given, \emph{everything} which appears in
+    math mode is colored accordingly. Sometimes, however, math mode is used for something besides mathematical formulae.
+    Some \LaTeX{} commands which internally use math mode (like \code{tabular} or \macroname{textsuperscript}) are
+    redefined accordingly when the \code{colormath} option is given (this is a potential source of trouble; beware of
+    problems\dots).
+    
+    If you need to use math mode for something which is not to be colored (like a symbol for \code{itemize}), you can
+    use the \macroname{origmath} command which works exactly like \macroname{ensuremath} but doesn't color its argument.
+    If a nested use of math mode should occur in the argument of \macroname{origmath}, it will again be colored.
+  \end{description}
+    
+  \newslide
+
+  \minisec{Documenting \TeX{} code:}
+  \begin{description}
+  \item[\present{\macroname{code}}] Simple command for typesetting \code{code} (like shell commands).
+    
+  \item[\present{\macroname{macroname}}] For \macroname{macro names}. Like \macroname{code}, but with a \macroname{} in
+    front.
+    
+  \item[\present{\commandapp[\carg{opt arg}]{commandapp}{\carg{command}\}\{\carg{arg}}}] For \TeX{} commands. \carg{arg}
+    stands for the command argument, \carg{opt arg} for an optional argument.
+    
+  \item[\present{\macroname{carg}}] For \carg{macro arguments}. 
+  \end{description}
+    
+  \newslide
+
+  \minisec{Additional emphasis commands:}
+  \begin{description}
+  \item[\present{\macroname{underl}}] Additional \underl{emphasis} command. Can be used like \macroname{emph}. Defaults
+    to \textbf{bold face} if the \code{colorhighlight} option is not given.
+    
+  \item[\present{\macroname{concept}}] Additional \concept{emphasis} command, especially for new concepts. Can be
+    augmented by things like automatic index entry creation. Also defaults to \textbf{bold face} if the
+    \code{colorhighlight} option is not given.
+    
+  \item[\present{\macroname{inactive}}] Additional \inactive{emphasis} command, this time for `de-emphasising'. There is
+    no sensible default if the \code{colorhighlight} option is not given, as base \LaTeX{} doesn't offer an appropriate
+    font. In this case, \macroname{inactive} defaults to \macroname{monochromeinactive}, which does nothing. 
+    
+    You can (re-)define \macroname{monochromeinactive} to provide some sensible behaviour in the absence of colors, for
+    instance striking out if you're using the
+    \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/soul.html}{\code{soul}} package.
+  \end{description}
+
+
+  \minisec{Color Highlighting:}
+  \begin{description}
+  \item[\present{\macroname{present}}] Highlighting command which puts its argument into a \present{box with colored
+      background}. Defaults to an \fbox{\macroname{fbox}} if the \code{colorhighlight} option is not given.
+  \end{description}
+
+\newslide
+
+  \minisec{Helpers:}
+  \begin{description}
+  \item[\present{\commandapp{replacecolor}{\carg{newname}\}\{\carg{origname}}}] For some presentation effects using
+    colors, it is neccessary to redefine standard colors like \code{mathcolor}. The \code{color} package only offers the
+    \macroname{definecolor} command for doing this, which needs a `raw' color definition, like \concept{RGB} values. It
+    can not be used to redefine \code{mathcolor} to be the same as \code{inactivecolor}, for instance.
+    
+    \macroname{replacecolor} will make \carg{newname} have the same definition as \carg{origname}, where \carg{newname}
+    and \carg{origname} are color names as given in the first argument of \macroname{definecolor}.
+
+    See example \ref{Sec:Exhl} for a presentation effect where this is used.
+  \end{description}
+
+
+  \newslide
+
+  \minisec{Changing color sets:}
+  In addition to the standard colors for displaying `normal' text, there exist `dimmed' and `enhanced' color sets
+  especially for dynamic effects. Compare section \ref{Sec:Colors}.
+  \begin{description}
+  \item[\present{\macroname{dimcolors}}] Switch to \concept{dimmed} color set.
+  \item[\present{\macroname{enhancecolors}}] Switch to \concept{enhanced} color set.
+  \item[\present{\macroname{vanishcolors}}] Replace \emph{all} standard colors by \emph{one} color. This color is given
+    by the command \macroname{vanishcolor}, which defaults to \code{pagecolor} and can be redefined as convenient.
+  \end{description}
+  
+
+  \newslide
+
+  \subsection{Defined colors for emphasis and highlighting elements}\label{Sec:Colors}
+  The following colors are used automatically by the text emphasis and highlighting commands:
+  \begin{description}
+  \item[\present{color: \code{pagecolor}}] Background color of the page. Is set automatically if you give one of the
+    options \code{colorhighlight}, \code{whitebackground}, \code{lightbackground}, \code{darkbackground}, or
+    \code{blackbackground}.
+
+  \item[\present{color: \code{textcolor}}] Color of normal text. Is set automatically if you give one of the options
+    \code{colorhighlight}, \code{whitebackground}, \code{lightbackground}, \code{darkbackground}, or
+    \code{blackbackground}.
+
+  \item[\present{color: \code{emcolor}}] Color used for \emph{emphasis} if the \code{coloremph} option is set.
+    
+  \item[\present{color: \code{altemcolor}}] Color used \emph{for \emph{double} emphasis} if the \code{coloremph} option
+    is set.
+    
+  \item[\present{color: \code{mathcolor}}] Color used for math $a^2+b^2=c^2$ if the \code{colormath} option is set.
+
+  \item[\present{color: \code{codecolor}}] Color used by the \macroname{code} command if the \code{colorhighlight}
+    option is set.
+    
+  \item[\present{color: \code{underlcolor}}] Color used by the \underl{\macroname{underl} command} if the
+    \code{colorhighlight} option is set.
+    
+  \item[\present{color: \code{conceptcolor}}] Color used by the \concept{\macroname{concept} command} if the
+    \code{colorhighlight} option is set.
+    
+    \newslide
+
+  \item[\present{color: \code{inactivecolor}}] Color used by the \inactive{\macroname{inactive} command} if the
+    \code{colorhighlight} option is set.
+    
+  \item[\present{color: \code{presentcolor}}] Color used as background color by the \present{\macroname{present}}
+    command if the \code{colorhighlight} option is set.
+    
+  \item[\present{color: \code{highlightcolor}}] Color used as background color by the
+    \highlightboxed{\macroname{highlightboxed}} and \macroname{highlighttext} commands (see section
+    \ref{Sec:displaycustom}) if the \code{colorhighlight} option is set.
+  \end{description}
+
+  \newslide
+
+  \minisec{Dimmed and enhanced color sets}
+  For every one of the colors listed above, there exists a \concept{dimmed} and an \emph{enhanced} variant. The names of
+  these are the same as the standard colors, preceded by \code{d} for the dimmed set and preceded by \code{e} for the
+  enhanced set. For instance, the dimmed variant of \code{textcolor} is called \code{dtextcolor} and the enhanced
+  variant of \code{textcolor} is called \code{etextcolor}.
+  
+  The standard color set is replaced by the dimmed color set by the command \macroname{dimcolors} and by the enhanced
+  color set by the command \macroname{enhancecolors}. Compare section \ref{Sec:Colorcommands}.
+
+\ifthenelse{\boolean{TPcolor}}
+{%
+  \newslide
+
+  \whitebackground\pagecolor{pagecolor}\color{textcolor}
+
+  \minisec{Color tables}
+
+  \vspace*{\fill}
+  \begin{center}
+    \begin{tabular}{|l*{3}{|p{2cm}}|}
+      \cline{2-4}
+      \multicolumn{1}{l|}{\makebox[0pt][l]{\textbf{\footnotesize white background}}}&standard&dimmed&enhanced\\\hline
+      \code{textcolor}&\textcolor{textcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dtextcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{etextcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{emcolor}&\textcolor{emcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{demcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{eemcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{altemcolor}&\textcolor{altemcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{daltemcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{ealtemcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{mathcolor}&\textcolor{mathcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dmathcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{emathcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{codecolor}&\textcolor{codecolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dcodecolor}{\rule{2cm}{\heightof{l}}}&\textcolor{ecodecolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{underlcolor}&\textcolor{underlcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dunderlcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{eunderlcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{conceptcolor}&\textcolor{conceptcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dconceptcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{econceptcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{inactivecolor}&\textcolor{inactivecolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dinactivecolor}{\rule{2cm}{\heightof{l}}}&\textcolor{einactivecolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{presentcolor}&\textcolor{presentcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dpresentcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{epresentcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{highlightcolor}&\textcolor{highlightcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dhighlightcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{ehighlightcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+    \end{tabular}
+  \end{center}
+
+  \newslide
+
+  \lightbackground\pagecolor{pagecolor}\color{textcolor}
+
+  \vspace*{\fill}
+  \begin{center}
+    \begin{tabular}{|l*{3}{|p{2cm}}|}
+      \cline{2-4}
+      \multicolumn{1}{l|}{\textbf{\footnotesize light background}}&standard&dimmed&enhanced\\\hline
+      \code{textcolor}&\textcolor{textcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dtextcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{etextcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{emcolor}&\textcolor{emcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{demcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{eemcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{altemcolor}&\textcolor{altemcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{daltemcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{ealtemcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{mathcolor}&\textcolor{mathcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dmathcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{emathcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{codecolor}&\textcolor{codecolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dcodecolor}{\rule{2cm}{\heightof{l}}}&\textcolor{ecodecolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{underlcolor}&\textcolor{underlcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dunderlcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{eunderlcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{conceptcolor}&\textcolor{conceptcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dconceptcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{econceptcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{inactivecolor}&\textcolor{inactivecolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dinactivecolor}{\rule{2cm}{\heightof{l}}}&\textcolor{einactivecolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{presentcolor}&\textcolor{presentcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dpresentcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{epresentcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{highlightcolor}&\textcolor{highlightcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dhighlightcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{ehighlightcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+    \end{tabular}
+  \end{center}
+  
+  \newslide
+
+  \darkbackground\pagecolor{pagecolor}\color{textcolor}
+
+  \vspace*{\fill}
+  \begin{center}
+    \begin{tabular}{|l*{3}{|p{2cm}}|}
+      \cline{2-4}
+      \multicolumn{1}{l|}{\textbf{\footnotesize dark background}}&standard&dimmed&enhanced\\\hline
+      \code{textcolor}&\textcolor{textcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dtextcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{etextcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{emcolor}&\textcolor{emcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{demcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{eemcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{altemcolor}&\textcolor{altemcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{daltemcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{ealtemcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{mathcolor}&\textcolor{mathcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dmathcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{emathcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{codecolor}&\textcolor{codecolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dcodecolor}{\rule{2cm}{\heightof{l}}}&\textcolor{ecodecolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{underlcolor}&\textcolor{underlcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dunderlcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{eunderlcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{conceptcolor}&\textcolor{conceptcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dconceptcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{econceptcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{inactivecolor}&\textcolor{inactivecolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dinactivecolor}{\rule{2cm}{\heightof{l}}}&\textcolor{einactivecolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{presentcolor}&\textcolor{presentcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dpresentcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{epresentcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{highlightcolor}&\textcolor{highlightcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dhighlightcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{ehighlightcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+    \end{tabular}
+  \end{center}
+  
+  \newslide
+
+  \blackbackground\pagecolor{pagecolor}\color{textcolor}
+
+  \vspace*{\fill}
+  \begin{center}
+    \begin{tabular}{|l*{3}{|p{2cm}}|}
+      \cline{2-4}
+      \multicolumn{1}{l|}{\textbf{\footnotesize black background}}&standard&dimmed&enhanced\\\hline
+      \code{textcolor}&\textcolor{textcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dtextcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{etextcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{emcolor}&\textcolor{emcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{demcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{eemcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{altemcolor}&\textcolor{altemcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{daltemcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{ealtemcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{mathcolor}&\textcolor{mathcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dmathcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{emathcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{codecolor}&\textcolor{codecolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dcodecolor}{\rule{2cm}{\heightof{l}}}&\textcolor{ecodecolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{underlcolor}&\textcolor{underlcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dunderlcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{eunderlcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{conceptcolor}&\textcolor{conceptcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dconceptcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{econceptcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{inactivecolor}&\textcolor{inactivecolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dinactivecolor}{\rule{2cm}{\heightof{l}}}&\textcolor{einactivecolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{presentcolor}&\textcolor{presentcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dpresentcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{epresentcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+      \code{highlightcolor}&\textcolor{highlightcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{dhighlightcolor}{\rule{2cm}{\heightof{l}}}&\textcolor{ehighlightcolor}{\rule{2cm}{\heightof{l}}}\\\hline
+    \end{tabular}
+  \end{center}
+}{}  
+  
+%%% Local Variables: 
+%%% mode: latex
+%%% fill-column: 120
+%%% TeX-master: "manual"
+%%% End: 

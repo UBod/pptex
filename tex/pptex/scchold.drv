@@ -1,0 +1,135 @@
+%
+%
+% driver for PPTeX document class: SCCH Slides (with 10x7.5in paper)
+%
+% last revision 2006/08/01 by Ulrich Bodenhofer
+%
+%
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+
+\ProvidesFile{scchold.drv}[2007/08/09 Old SCCH Slide Class Driver]
+
+%
+% font customizations
+%
+\renewcommand{\rmdefault}{phv}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{pcr}
+
+%
+% declaration of logo commands
+%
+\def\@SCCHLogoDir{} % put whatever you want here
+
+\newcommand{\SCCHLogoDir}[1]{\def\@SCCHLogoDir{#1}}
+
+\newcommand{\SCCHBWLogo}[1]{\includegraphics[width=#1]{\@SCCHLogoDir scchbwlogo}}
+\newcommand{\SCCHColorLogo}[1]{\includegraphics[width=#1]{\@SCCHLogoDir scchcolorlogo}}
+\newcommand{\SCCHVarBWLogo}[1]{\includegraphics[#1]{\@SCCHLogoDir scchbwlogo}}
+\newcommand{\SCCHVarColorLogo}[1]{\includegraphics[#1]{\@SCCHLogoDir scchcolorlogo}}
+
+\newcommand{\KPlusBWLogo}[1]{\includegraphics[width=#1]{\@SCCHLogoDir kplusbwlogo}}
+\newcommand{\KPlusColorLogo}[1]{\includegraphics[width=#1]{\@SCCHLogoDir kpluscolorlogo}}
+\newcommand{\KPlusVarBWLogo}[1]{\includegraphics[#1]{\@SCCHLogoDir kplusbwlogo}}
+\newcommand{\KPlusVarColorLogo}[1]{\includegraphics[#1]{\@SCCHLogoDir kpluscolorlogo}}
+
+%
+% redefine colors
+%
+\definecolor{scchwh}{rgb}{1.00,1.00,1.00}
+\definecolor{scchbl}{rgb}{0.00,0.00,0.00}
+\definecolor{scchre}{rgb}{0.62,0.09,0.11}
+\definecolor{scchye}{rgb}{1.00,0.80,0.00}
+\definecolor{scchgr}{rgb}{0.67,0.64,0.60}
+\definecolor{pagecolor}{rgb}{1.0,1.0,1.0}
+\definecolor{textcolor}{rgb}{0.0,0.0,0.0}
+
+\replacecolor{pagecolor}{scchwh}
+\replacecolor{textcolor}{scchbl}
+
+\newcommand{\red}{\color{scchre}}
+\newcommand{\yellow}{\color{scchye}}
+
+%
+% hyperref setup
+%
+\hypersetup{bookmarksopen,colorlinks,urlcolor=scchre,linkcolor=scchre,pdfpagemode=FullScreen}
+
+%
+% set item and enum labels
+%
+\renewcommand{\labelitemi}{{\color{scchre}\rule[0.3ex]{0.6ex}{0.6ex}}}
+\renewcommand{\labelitemii}{{\color{scchre}\rule[0.25ex]{0.4ex}{0.4ex}}}
+\renewcommand{\labelitemiii}{{\color{scchre}---}}
+\renewcommand{\labelitemiv}{{\color{scchre}--}}
+\renewcommand{\labelenumi}{{\color{scchre}\theenumi.}}
+\renewcommand{\labelenumii}{{\color{scchre}(\theenumii)}}
+\renewcommand{\labelenumiii}{{\color{scchre}\theenumiii.}}
+\renewcommand{\labelenumiv}{{\color{scchre}\theenumiv.}}
+
+%
+% declare slide environments
+%
+\newlength{\SCCHyellowwidth}
+\newlength{\SCCHyellowheight}
+\newlength{\SCCHlogowidth}
+\newlength{\SCCHyellowwidths}
+\newlength{\SCCHyellowheights}
+\newlength{\SCCHlogowidths}
+\newlength{\SCCHgreyheight}
+\newlength{\SCCHlightlogoheight}
+
+\setslidelength{\SCCHyellowwidth}{11.22cm}
+\setslidelength{\SCCHyellowheight}{2.25cm}
+\setslidelength{\SCCHlogowidth}{9.85cm}
+\setslidelength{\SCCHyellowwidths}{6.27cm}
+\setslidelength{\SCCHyellowheights}{1.91cm}
+\setslidelength{\SCCHlogowidths}{6.35cm}
+\setslidelength{\SCCHgreyheight}{2.33cm}
+\setslidelength{\SCCHlightlogoheight}{5.64cm}
+
+\newcommand{\sccholdtitleslide}[3][]{%
+\setslidelength{\unitlength}{1cm}
+\pdfbookmark[-1]{#1}{slide\theslide}
+\begin{picture}(25.4,19.05)
+\put(3.91,16.8){\makebox(0,0)[lt]{\includegraphics[width=\SCCHlogowidth]{\@SCCHLogoDir scchcolorlogo.png}}}
+\put(0,19.05){\makebox(0,0)[lt]{\includegraphics[width=\SCCHyellowwidth,height=\SCCHyellowheight]{\@SCCHLogoDir scchyellowbeam.jpg}}}
+\put(0,0){\makebox(0,0)[lb]{\includegraphics[width=25.4\semcm,height=\SCCHgreyheight]{\@SCCHLogoDir scchgreybeam.jpg}}}
+\put(8.47,10.29){\makebox(0,0)[lt]{\includegraphics[height=\SCCHlightlogoheight]{\@SCCHLogoDir scchlogolight.jpg}}}
+\put(1.48,0.63){\makebox(0,0)[lt]{{\color{scchwh}\fontfamily{phv}\fontsize{5pt}{7pt}\selectfont\PPTeX@footline}}}
+\put(22.44,0.63){\makebox(0,0)[rt]{{\color{scchwh}\fontfamily{phv}\fontsize{5pt}{7pt}\selectfont\theslide}}}
+\put(14.31,16.8){\makebox(0,0)[lt]{{\fontfamily{phv}\fontsize{7pt}{8pt}\selectfont\begin{minipage}{9\semcm} #1 \end{minipage}}}}
+\put(22.44,8.04){\makebox(0,0)[rb]{\begin{minipage}{18.21\semcm}
+{\LARGE\color{scchre}\begin{flushright}
+#2
+\end{flushright}}
+\end{minipage}}}
+\put(22.44,6.77){\makebox(0,0)[rt]{\begin{minipage}{18.21\semcm}
+{\Large\color{scchbl}\begin{flushright}
+#3
+\end{flushright}}
+\end{minipage}}}
+\end{picture}}
+
+\newcommand{\sccholdslide}[2]{%
+\setslidelength{\unitlength}{1cm}
+\pdfbookmark[0]{#1}{slide\theslide}
+\begin{picture}(25.4,19.05)
+\put(8.47,17.27){\makebox(0,0)[lt]{\includegraphics[height=\SCCHlightlogoheight]{\@SCCHLogoDir scchlogolight.jpg}}}
+\put(1.48,17.14){\makebox(0,0)[lt]{\includegraphics[width=\SCCHlogowidths]{\@SCCHLogoDir scchcolorlogo.png}}}
+\put(0,19.05){\makebox(0,0)[lt]{\includegraphics[width=\SCCHyellowwidths,height=\SCCHyellowheights]{\@SCCHLogoDir scchyellowbeam.jpg}}}
+\put(0,0){\makebox(0,0)[lb]{\includegraphics[width=25.4\semcm,height=\SCCHgreyheight]{\@SCCHLogoDir scchgreybeam.jpg}}}
+\put(1.48,0.63){\makebox(0,0)[lt]{{\color{scchwh}\fontfamily{phv}\fontsize{5pt}{7pt}\selectfont\PPTeX@footline}}}
+\put(22.44,0.63){\makebox(0,0)[rt]{{\color{scchwh}\fontfamily{phv}\fontsize{5pt}{7pt}\selectfont\theslide}}}
+\put(22.44,17.42){\makebox(0,0)[rt]{\begin{minipage}{13.47\semcm}
+{\color{scchre}\fontfamily{phv}\fontsize{14pt}{17pt}\selectfont\begin{flushright}
+#1
+\end{flushright}}
+\end{minipage}}}
+#2
+\end{picture}}
+
+\newcommand{\sccholdsimpletextslide}[2]{\sccholdslide{#1}{%
+\textbox{1.73,13.29}{20.46}{#2}}}
+
+\endinput

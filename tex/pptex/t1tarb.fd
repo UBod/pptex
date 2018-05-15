@@ -1,0 +1,12 @@
+\ProvidesFile{t1tarb.fd}
+   [2016/02/17 font definitions for T1/tarb.]
+
+\DeclareFontFamily{T1}{tarb}{}
+
+\DeclareFontShape{T1}{tarb}{b}{n}{<-> ecarb}{}
+
+\DeclareFontShape{T1}{tarb}{m}{n}{<-> ecarb}{}
+
+\DeclareFontShape{T1}{tarb}{bx}{n}{<->ssub * tarb/b/n}{}
+
+\endinput

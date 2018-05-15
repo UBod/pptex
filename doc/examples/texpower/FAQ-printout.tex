@@ -1,0 +1,96 @@
+%-----------------------------------------------------------------------------------------------------------------
+% File: FAQ-printout.tex
+%
+% Frequently Asked Questions list for the TeXPower bundle (printout version).
+% 
+%-----------------------------------------------------------------------------------------------------------------
+% Autor: Stephan Lehmke <Stephan.Lehmke@cs.uni-dortmund.de>
+%
+% v0.0.1 May 31, 2000: First version for the pre-alpha release of TeXPower.
+%
+
+\documentclass[12pt]{scrartcl}
+
+%-----------------------------------------------------------------------------------------------------------------
+% We need some more packages...
+%
+
+\usepackage{url}
+
+\usepackage[latin1]{inputenc}
+
+% The following package makes code look a little nicer, but it may not be present on all systems.
+
+\IfFileExists{cmtt.sty}{\usepackage[override]{cmtt}}{}
+
+% Loading the soul package enables the \highlighttext command.
+
+\usepackage{soul}
+
+% One more Text emphasis command...
+
+\let\name=\textsc
+
+
+\usepackage{fancyvrb}
+
+\usepackage{array}
+
+\usepackage{longtable}
+
+
+%-----------------------------------------------------------------------------------------------------------------
+% Load hyperref.
+%
+\usepackage[bookmarksopen]{hyperref}
+
+%-----------------------------------------------------------------------------------------------------------------
+% Finally, the texpower package is loaded. 
+%
+\usepackage{texpower}
+
+%-----------------------------------------------------------------------------------------------------------------
+% The configuration file allows user-specific settings.
+
+\input{__TP.cfg}
+
+
+
+%-----------------------------------------------------------------------------------------------------------------
+% The code in the file __TPFAQ is meant for the document class seminar. Thus, it contains some seminar-specific commands
+% which are replaced by dummies here.
+
+\let\newslide=\relax
+
+%-----------------------------------------------------------------------------------------------------------------
+% The following command produces the title for this document. 
+
+\newcommand{\makeslidetitle}[1]
+{%
+  \hypersetup{pdftitle={#1}}
+  \title{The \TeX Power bundle\\{\normalfont #1}}
+  \author{Stephan Lehmke\\\url{mailto:Stephan.Lehmke@cs.uni-dortmund.de}}
+  \maketitle
+}
+
+  \tolerance 1414
+  \hbadness 1414
+  \emergencystretch 1.5em
+  \hfuzz 0.3pt
+  \vfuzz \hfuzz
+  \relax
+
+%-----------------------------------------------------------------------------------------------------------------
+% Finally, everything is set up. Here we go...
+%
+
+\begin{document}
+\input{__TPFAQ}
+\end{document}
+
+
+
+% Local Variables: 
+% fill-column: 120
+% TeX-master: t
+% End: 

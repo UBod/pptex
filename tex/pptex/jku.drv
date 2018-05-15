@@ -1,0 +1,118 @@
+%
+%
+% driver for PPTeX document class: JKU Slides (with 10x7.5in paper)
+%
+% last revision 2016-02-17 by Ulrich Bodenhofer
+%
+%
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+
+\ProvidesFile{jku.drv}[2016/02/17 JKU Slide Class Driver]
+
+%
+% font customizations
+%
+\renewcommand{\rmdefault}{phv}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{pcr}
+
+%
+% redefine colors
+%
+\definecolor{jkublue}{rgb}{0.00,0.47,0.67}
+\definecolor{jkupurple}{rgb}{0.57,0.29,0.51}
+\definecolor{jkured}{rgb}{0.80,0.35,0.31}
+\definecolor{jkuyellow}{rgb}{0.90,0.76,0.14}
+\definecolor{jkugreen}{rgb}{0.45,0.71,0.33}
+\definecolor{jkulightblue}{rgb}{0.39,0.71,0.75}
+
+\replacecolor{pagecolor}{white}
+\replacecolor{textcolor}{black}
+
+\newcommand{\blue}{\color{jkublue}}
+\newcommand{\purple}{\color{jkupurple}}
+\newcommand{\red}{\color{jkured}}
+\newcommand{\yellow}{\color{jkuyellow}}
+\newcommand{\green}{\color{jkugreen}}
+\newcommand{\lightblue}{\color{jkulightblue}}
+
+%
+% hyperref setup
+%
+\iffullscreen
+\hypersetup{bookmarksopen,colorlinks,urlcolor=jkublue,linkcolor=jkublue,pdfpagemode=FullScreen}
+\else
+\hypersetup{bookmarksopen,colorlinks,urlcolor=jkublue,linkcolor=jkublue}
+\fi
+
+%
+% set item and enum labels
+%
+\renewcommand{\labelitemi}{{\rule{1.0ex}{1.0ex}}}
+\renewcommand{\labelitemii}{{${\scriptstyle\Box}$}}
+\renewcommand{\labelitemiii}{{$\bullet$}}
+\renewcommand{\labelitemiv}{{$\circ$}}
+\renewcommand{\labelenumi}{{\theenumi.}}
+\renewcommand{\labelenumii}{{\theenumii.}}
+\renewcommand{\labelenumiii}{{\theenumiii.}}
+\renewcommand{\labelenumiv}{{\theenumiv.}}
+
+%
+% declare slide environments
+%
+
+\newcommand{\jkutitleslide}[3][]{%
+\setslidelength{\unitlength}{1cm}
+\pdfbookmark[-1]{#2}{slide\theslide}
+\begin{picture}(25.4,19.05)
+\PPTeX@background
+\put(1.77,12.55){\makebox(0,0)[lb]{\begin{minipage}{21.55\semcm}
+{\huge\fontencoding{T1}\fontfamily{tarb}\fontseries{b}\selectfont\begin{flushleft}
+#2
+\end{flushleft}}
+\end{minipage}}}
+\put(1.77,8.84){\makebox(0,0)[lb]{\includegraphics[height=3.0\semcm]{JKU_EN_K.pdf}}}
+\put(1.77,8.14){\makebox(0,0)[lt]{\begin{minipage}{21.55\semcm}
+{\small\begin{flushleft}
+#3
+\end{flushleft}}
+\end{minipage}}}
+\put(1.77,1.77){\makebox(0,0)[lb]{\includegraphics[height=2.2\semcm]{JKU_EN.pdf}}}
+\put(23.32,1.77){\makebox(0,0)[rb]{\begin{minipage}{10\semcm}
+{\begin{flushright}
+#1
+\end{flushright}}
+\end{minipage}}}
+\end{picture}}
+
+\newcommand{\jkuslide}[2]{%
+\setslidelength{\unitlength}{1cm}
+\pdfbookmark[0]{#1}{slide\theslide}
+\begin{picture}(25.4,19.05)
+\PPTeX@background
+\put(2.2,0.85){\makebox(0,0)[lb]{\includegraphics[height=1.05\semcm]{JKU_EN_noName.pdf}}}
+\put(23.32,0.85){\makebox(0,0)[rb]{{\fontfamily{phv}\fontsize{5pt}{7pt}\fontseries{b}\selectfont\theslide}}}
+\put(5,0.85){\makebox(0,0)[lb]{\begin{minipage}{17\semcm}
+\centerline{\fontfamily{phv}\fontsize{5pt}{7pt}\fontseries{b}\selectfont\PPTeX@footline}
+\end{minipage}}}
+\put(1.77,17.11){\makebox(0,0)[lt]{\begin{minipage}{21.55\semcm}
+{\Large\fontfamily{tarb}\fontseries{b}\selectfont\begin{flushleft}
+#1
+\end{flushleft}}
+\end{minipage}}}
+#2
+\end{picture}}
+
+\newcommand{\clearslide}{\put(0,2){\color{biowh}\rule{25.4\semcm}{12\semcm}}}
+
+\renewcommand{\textboxdefaultfont}{\small}
+
+\newcommand{\defaulttextbox}[1]{\textbox{1.77,13.98}{21.55}{{\textboxdefaultfont #1}}}
+
+\newcommand{\defaulttextboxleft}[1]{\textbox{1.77,13.98}{10.08}{{\textboxdefaultfont #1}}}
+\newcommand{\defaulttextboxright}[1]{\textbox{13.24,13.98}{10.08}{{\textboxdefaultfont #1}}}
+
+\newcommand{\jkusimpletextslide}[2]{\jkuslide{#1}{%
+\defaulttextbox{#2}}}
+
+\endinput

@@ -1,0 +1,154 @@
+%-----------------------------------------------------------------------------------------------------------------
+% File: __TPhlit.tex
+%
+% Code for the highlighting example for the package texpower.sty.
+% 
+% This file is input by others. Don't compile it separately.
+%
+%-----------------------------------------------------------------------------------------------------------------
+% Autor: Stephan Lehmke <Stephan.Lehmke@cs.uni-dortmund.de>
+%
+% v0.0.1 Mar 20, 2000: First version for the pre-alpha release of TeXPower.
+%
+% v0.0.2 Apr 27, 2000: Some small changes in preparation of the update to TeXpower v0.0.7.
+%                      Added demo for \highlighttext.
+%                      Itemize demo now checks whether color is activated.
+%
+% v0.0.3 May 26, 2000: Added an example for how to make the text in a paragraph `stand out' from the background.
+%
+% v0.0.4 Jun 07, 2000: Now using \hidedimmed and \highlightenhanced.
+%
+
+%-----------------------------------------------------------------------------------------------------------------
+%
+\makeslidetitle{\macroname{stepwise} Example: Highlighting Text}\label{Sec:Exhl}
+% The default for \step's which are not yet `active' is to be `invisible'. In preceding examples, we have redefined
+% internal macros like \hidestepcontents or \activatestep to achieve special `highlighting' effects.
+% Here, we demonstrate how make text `stand out' from the background incrementally without having it appear from thin
+% air. 
+
+% The first example demonstrates how to make \step its argument `stand out' instead of making it appear `out of
+% nowhere'. 
+  
+\makeatletter
+\ifthenelse{\boolean{TPcolor}}% Can we use colors?
+{% Yes. In this case \step should change colors from `dimmed' to `active'.
+
+  % The command \hidedimmed switches colors to `dimmed', the command \highlightenhanced switches colors to `enhanced'.
+  \liststepwise[\let\hidestepcontents=\hidedimmed\let\activatestep=\highlightenhanced]
+  {%
+    \vspace*{\fill}
+    \begin{quote}
+      \Large%
+      \step{Instead of making things appear out of `thin air',} \step{we can also make them appear `out of the
+        background'} \step{by incrementally changing color from \concept{inactive}} \step{to \concept{active}.}
+      \step{This also works with \emph{color emphasis}} \step{and \concept{math coloring}: $a=b^2$.}
+    \end{quote}
+    \vspace*{\fill}\vspace*{\fill}
+    }%
+  }
+{% No. In this case we have to `handwave' using the soul package.
+  % Instead of hiding its argument, the new command \myhide just changes the font size (maintaining the overall text
+  % length though).
+  \def\myhide
+  {%
+    \let\SOUL@preamble=\relax%
+    \let\SOUL@postamble=\relax%
+    \let\SOUL@interword=\space%
+    \def\SOUL@everytoken{\makebox[\widthof{\SOUL@actual}][s]{\rule[\depthof{\SOUL@actual}*-1]{0pt}{\depthof{\SOUL@actual}+\heightof{\SOUL@actual}}\hrulefill\tiny\SOUL@actual\hrulefill}\kern\dimen@}%
+    \def\SOUL@everyhyphen{\kern-\dimen@\discretionary{\kern\dimen3\unhcopy\tw@}{}{}}%
+    \let\SOUL@everysyllable=\relax%
+    \SOUL@%
+    }
+  
+  \liststepwise[\let\hidestepcontents=\myhide\setcounter{firststep}{0}]
+  {%
+    \vspace*{\fill}
+    \begin{quote}
+      \LARGE%
+      \step{Instead of making things appear out of `thin air',} \step{we can also make them appear `out of the
+        background'} \step{incrementally.}
+    \end{quote}
+    \vspace*{\fill}\vspace*{\fill}
+    }%
+  }
+\makeatother
+
+\newslide
+
+% Next, it is demonstrated how we can `flip through' an itemize environment by just highlighting the items in turn
+% instead of making them appear one by one. 
+%
+% We define a macro \mystep which implements the highlighting effect.
+\ifthenelse{\boolean{TPcolor}}% Can we use colors?
+{% Yes. In this case highlighting is implemented by switching color.
+  \def\mystep% Note that \mystep takes no argument. It just changes the way the next item is displayed.
+  {% 
+    \step
+    {%
+      \ifthenelse{\boolean{firstactivation}}% Highlight only when _first_ activated.
+      {\color{conceptcolor}}% 
+      {\color{inactivecolor}}}%
+    }%
+}
+{% No. In this case highlighting is implemented by redefining \labelitemi.
+  \def\mystep
+  {%
+    \step{\ifthenelse{\boolean{firstactivation}}{\def\labelitemi{\origmath{\gg}}}{\def\labelitemi{\origmath{\cdot}}}}%
+    }%
+  }
+
+% We define a custom itemize environment which automatically adds calls to \mystep:
+\newenvironment{stepitemize}
+{%
+  \huge
+  \begin{itemize}
+    \let\origitem=\item
+    % Here, the \mystep command is hidden inside \item
+    \renewcommand{\item}{\mystep\origitem}%
+    }
+  {%
+  \end{itemize}
+  }
+    
+Instead of displaying incrementally, we can just `flip through' some items by highlighting them:
+  
+% As the highlighting is done by \mystep, we define \hidestepcontents to also display its argument, so that all items
+% are visible from the outset.
+
+% Note that we use the starred version of \liststepwise so that the first item is highlighted on the first slide
+% produced by \liststepwise.
+%
+\liststepwise*[\let\hidestepcontents=\displaystepcontents]
+{%
+  \begin{stepitemize}
+  \item Item 1
+  \item Item 2
+  \item Item 3
+  \end{stepitemize}
+  }
+
+\pause
+
+% The following example demonstrates highlighting inside a paragraph using \highlighttext. By redefining \activatestep
+% to \highlighttext, the argument of every \step will be highlighted when the \step is activated for the first
+% time. Note that highlighting doesn't influence line breaks because \highlighttext is implemented using the soul
+% package.
+%
+% Again, we define \hidestepcontents to display its argument, so that the complete text is visible from the outset. 
+
+\stepwise[\let\activatestep=\highlighttext\let\hidestepcontents=\displayidentical]
+{%
+  \vspace*{\fill}
+  \begin{minipage}{\linewidth}
+    \LARGE
+    \step{Inside} a paragraph, we can \step{highlight} text \step{without influencing} \step{line breaks}.
+  \end{minipage}
+  \vspace*{\fill}
+  }
+
+%%% Local Variables: 
+%%% mode: latex
+%%% fill-column: 120
+%%% TeX-master: "hilitexample"
+%%% End: 

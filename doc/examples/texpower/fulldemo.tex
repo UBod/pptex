@@ -1,0 +1,257 @@
+%-----------------------------------------------------------------------------------------------------------------
+% File: fulldemo.tex
+%
+% Demo & Manual for the package texpower.sty (pre-alpha release).
+%
+% This file can be compiled with pdfLaTeX or (standard) LaTeX. When using standard LaTeX, the dvi file produced should
+% be processed with
+%
+% dvips -Ppdf -j0 fulldemo
+%
+% afterwards processing the resulting ps file with
+%
+% distill fulldemo.ps
+%
+% (The syntax is for a unix system with tetex 1.0 and distiller 3. Modify appropriately for other configurations.)
+%
+% The resulting pdf file is meant for presenting `interactively' with Adobe Acrobat Reader.
+%
+%-----------------------------------------------------------------------------------------------------------------
+% Autor: Stephan Lehmke <Stephan.Lehmke@cs.uni-dortmund.de>
+%
+% v0.0.1 Oct 26, 1999: seven examples completed; parts of inline documentation
+%
+% v0.0.2 Feb 18, 2000: inline documentation of examples completed
+%
+% v0.0.3 Mar  1, 2000: added examples for \pause and page transitions; Documentation section started
+%
+% v0.0.4 Mar 10, 2000: Documentation for the first pre-alpha release completed
+%
+% v0.0.5 Mar 20, 2000: Documentation split into several files to reduce compilation problems; tested with pdflatex
+%
+% v0.0.6 May  2, 2000: Some small changes in preparation of the update to TeXpower v0.0.7.
+%
+% v0.0.7 May 24, 2000: Some small changes in preparation of the update to TeXpower v0.0.8.
+%
+
+
+%-----------------------------------------------------------------------------------------------------------------
+% Enable all color emphasis and highlighting options; use a light background and slifonts.
+
+\PassOptionsToPackage{display,coloremph,colormath,colorhighlight,whitebackground,slifonts}{texpower}
+
+% Input the generic preamble.
+
+\input{__TPpble}
+\hypersetup{pdftitle={texpower full demo and documentation}}
+
+
+\setlength{\unitlength}{5mm}
+
+\ifthenelse{\boolean{psspecialsallowed}}% Can we use PSTricks?
+{% Yes.
+  % PsTricks is used for creating the picture example.
+
+  \usepackage{pstcol}
+  \usepackage{pst-node}
+
+  \psset{unit=\unitlength}
+  }
+{% No. We'll make do without.
+  }
+
+\usepackage{times}
+
+
+% We also include an eps image...
+
+\usepackage{graphicx}
+
+% ... and write some aligned equations.
+
+\usepackage{amsmath}
+% Make nested braces grow.
+\delimitershortfall-1sp
+
+
+% The package soul is needed for \highlighttext to work.
+
+\usepackage{soul}
+
+
+% The following package makes code look a little nicer, but it may not be present on all systems.
+
+\IfFileExists{cmtt.sty}{\usepackage[override]{cmtt}}{}
+
+
+%-----------------------------------------------------------------------------------------------------------------
+% Finally, everything is set up. Here we go...
+%
+\begin{document}
+\begin{slide}
+%
+% First, some words of explanation.
+%
+  \title
+  {%
+    The \TeX Power bundle\\
+    {%
+      \normalfont
+      Creating dynamic online presentations with \LaTeX\\
+      Full demo and documentation for \TeX Power v0.0.8f of Jun 27, 2000 (pre-alpha)%
+      }%
+    }
+
+  \author{Stephan Lehmke\\\url{mailto:Stephan.Lehmke@cs.uni-dortmund.de}}
+
+  \maketitle
+
+  \newslide
+
+  This document is a demonstration and preliminary manual for the \TeX Power bundle which allows to create dynamic
+  presentations in a very flexible way.
+
+  The heart of the bundle is the package \code{texpower} which implements some commands for presentation effects. This
+  includes setting page transitions, color highlighting and displaying pages incrementally.
+
+  All features of \code{texpower} are implemented entirely using \TeX{} and \LaTeX; they are meant for `online'
+  presentation with \concept{Adobe Acrobat\textsuperscript{\textregistered} Reader} and work with all ways of \code{pdf}
+  creation. The combination of \LaTeX{} + \code{dvips} + Acrobat Distiller is possible as well as pdf\LaTeX{} and other
+  \code{pdf} creation methods.
+
+  \newslide
+
+  \minisec{Disclaimer}
+  This is a \emph{pre-alpha} release of the \TeX Power bundle.
+
+  During the subsequent error correction and extension of the functionality, the syntax and implementation of the macros
+  described here are liable to change.
+
+  So far, the \code{texpower} package itself contains only scarce inline documentation, as the code is too much of a
+  moving target to make rigorous documentation a sensible endeavour. As soon as the \code{texpower} package is ready for
+  \emph{beta} release, it will be made into a fully documented \code{dtx} file.
+
+  \newslide
+
+  \minisec{Credits}%
+  I am indepted to \href{mailto:guntermann@iti.informatik.tu-darmstadt.de}{\name{Klaus Guntermann}}. His package
+  \href{http://www-sp.iti.informatik.tu-darmstadt.de/software/ppower4/pp4sty.zip}{\code{texpause}} from the \concept{Pdf
+    Presentation Post Processor} \href{http://www-sp.iti.informatik.tu-darmstadt.de/software/ppower4/}{PPower4} bundle
+  is the basis for the code of \code{texpower}.
+
+  Further thanks go to \href{mailto:dongen@cs.ucc.ie}{\name{Marc van Dongen}} for allowing me to include his code for
+  page transitions and to \href{mailto:Martin.Schroeder@ACM.org}{\name{Martin Schr\"oder}} for permission to use his
+  \concept{everyshi} code.
+
+  Useful hints for error corrections and improvements of code have been provided by \name{Marc van Dongen},
+  \name{Friedrich Eisenbrand}, \name{Ross Moore}, \name{Heiko Oberdiek}, \name{heiner richter}, and \name{Robert J.\
+    Vanderbei}.
+
+  Files in the \code{contrib} directory have been provided by \name{Berthold Crysmann}.
+
+  \newslide
+
+  \tableofcontents
+\end{slide}
+\begin{slide}
+  %-----------------------------------------------------------------------------------------------------------------
+  %
+  \section{Examples}\label{Sec:Ex}
+  First, two simple examples for the \macroname{pause} command.
+
+  All other examples are meant to illustrate the expressive power of the \macroname{stepwise} command.
+
+  Looking at the code for the examples will probably be the best way of understanding how certain effects can be
+  achieved.
+
+  \newslide
+
+  %-----------------------------------------------------------------------------------------------------------------
+  %
+  \subsection{Some examples for \macroname{pause}}
+  % It doesn't hurt to put \pause inside a paragraph, but a new paragraph is forced at each occurrence of \pause.
+  \begin{center}
+    a\pause b\pause c
+  \end{center}
+
+  \pause
+
+  % We set Page Transitions to Dissolve for the rest of this slide.
+  \pageTransitionDissolve
+  \begin{itemize}
+  \item foo\pause
+  \item bar\pause
+  \item baz
+  \end{itemize}
+
+  \newslide
+  % Page Transitions are set back to Replace.
+  \pageTransitionReplace
+
+%-----------------------------------------------------------------------------------------------------------------
+% The `titles' for the examples are simply subsection headings.
+
+\renewcommand{\makeslidetitle}[1]
+{%
+  \subsection{#1}%
+}
+
+  \input{__TPpic}
+
+  \newslide
+
+  \pageTransitionReplace
+
+  \input{__TPtab}
+
+  \newslide
+
+  \input{__TPmath}
+
+  \newslide
+
+  \input{__TPpar}
+
+  \newslide
+
+  \input{__TPbckwrd}
+
+  \newslide
+
+  \input{__TPhlit}
+
+  \newslide
+
+  \input{__TPdiv}
+
+\end{slide}
+
+
+\begin{slide}\relax
+
+%-----------------------------------------------------------------------------------------------------------------
+% The `title' for the documentation is a section heading. As sectioning in the __TPdoc file starts with \section, we
+% have to `downgrade' sectioning commands.
+
+\let\origsection=\section
+
+\renewcommand{\makeslidetitle}[1]
+{%
+  \let\section\subsection
+  \let\subsection\subsubsection
+  \def\thanks##1{}%
+  \origsection{#1}
+}
+
+  \addtocontents{toc}{\protect\clearpage}
+  \input{__TPdoc}
+
+\end{slide}
+\end{document}
+
+
+
+% Local Variables:
+% fill-column: 120
+% TeX-master: t
+% End:

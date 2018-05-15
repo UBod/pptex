@@ -1,0 +1,127 @@
+%
+%
+% driver for PPTeX document class: JKU Bioinf Slides (with 10x7.5in paper)
+%
+% last revision 2006-08-01 by Ulrich Bodenhofer
+%
+%
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+
+\ProvidesFile{bioinf.drv}[2008-06-16 JKU Bioinf Slide Class Driver]
+
+%
+% font customizations
+%
+\renewcommand{\rmdefault}{phv}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{pcr}
+
+%
+% redefine colors
+%
+\definecolor{biowh}{rgb}{1.00,1.00,1.00}
+\definecolor{biobl}{rgb}{0.00,0.00,0.00}
+\definecolor{bioaz}{rgb}{0.204,0.325,0.631}
+\definecolor{biove}{rgb}{0.24,0.63,0.37}
+\definecolor{bioli}{rgb}{0.667,0.9333,0.667}
+
+\replacecolor{pagecolor}{biowh}
+\replacecolor{textcolor}{biobl}
+
+\newcommand{\blue}{\color{bioaz}}
+\newcommand{\green}{\color{biove}}
+
+%
+% hyperref setup
+%
+\iffullscreen
+\hypersetup{bookmarksopen,colorlinks,urlcolor=biove,linkcolor=biove,pdfpagemode=FullScreen}
+\else
+\hypersetup{bookmarksopen,colorlinks,urlcolor=biove,linkcolor=biove}
+\fi
+
+%
+% set item and enum labels
+%
+\renewcommand{\labelitemi}{{\rule[0.3ex]{0.6ex}{0.6ex}}}
+\renewcommand{\labelitemii}{{\rule[0.25ex]{0.4ex}{0.4ex}}}
+\renewcommand{\labelitemiii}{{---}}
+\renewcommand{\labelitemiv}{{--}}
+\renewcommand{\labelenumi}{{\theenumi.}}
+\renewcommand{\labelenumii}{{(\theenumii)}}
+\renewcommand{\labelenumiii}{{\theenumiii.}}
+\renewcommand{\labelenumiv}{{\theenumiv.}}
+
+%
+% switch logos on and off
+%
+\newif\ifdisplaylogo
+\displaylogotrue
+\newcommand{\noBIOINFlogo}{\displaylogofalse}
+\newcommand{\displayBIOINFlogo}{\displaylogotrue}
+
+%
+% declare slide environments
+%
+
+\newcommand{\bioinftitleslide}[3][]{%
+\setslidelength{\unitlength}{1cm}
+\pdfbookmark[-1]{#2}{slide\theslide}
+\begin{picture}(25.4,19.05)
+\PPTeX@background
+\put(0.5,0.6){\makebox(0,0)[lb]{\color{bioli}\rule{24.4\semcm}{0.1\semcm}}}
+\ifdisplaylogo
+\put(24.9,15.95){\makebox(0,0)[rb]{\includegraphics[width=24.4\semcm,height=3.1\semcm]{bioinf-slidebar.pdf}}}
+\else
+\put(24.9,15.95){\makebox(0,0)[rb]{\includegraphics[width=24.4\semcm,height=3.1\semcm]{bioinf-greenbar.pdf}}}
+\fi
+\put(1.2,17.15){\makebox(0,0)[l]{\color{bioaz}\fontfamily{phv}\fontsize{8pt}{11pt}\bfseries\selectfont%
+\begin{minipage}{16\semcm}
+\begin{flushleft}
+Institute of Bioinformatics\\
+Johannes Kepler University Linz
+\end{flushleft}
+\end{minipage}}}
+\put(12.7,8.5){\makebox(0,0){\begin{minipage}{19.6\semcm}
+{{\LARGE\bfseries\color{biobl}\begin{center}
+#2
+\end{center}}%
+\vspace*{0.1\semcm}
+{\normalsize\color{biobl}\begin{center}
+#3
+\end{center}}}
+\end{minipage}}}
+\end{picture}}
+
+\newcommand{\bioinfslide}[2]{%
+\setslidelength{\unitlength}{1cm}
+\pdfbookmark[0]{#1}{slide\theslide}
+\begin{picture}(25.4,19.05)
+\PPTeX@background
+\put(0.5,0.6){\makebox(0,0)[lb]{\color{bioli}\rule{24.4\semcm}{0.1\semcm}}}
+\ifdisplaylogo
+\put(24.9,15.95){\makebox(0,0)[rb]{\includegraphics[width=24.4\semcm,height=3.1\semcm]{bioinf-slidebar.pdf}}}
+\else
+\put(24.9,15.95){\makebox(0,0)[rb]{\includegraphics[width=24.4\semcm,height=3.1\semcm]{bioinf-greenbar.pdf}}}
+\fi
+\put(0.55,0.45){\makebox(0,0)[lt]{{\color{biobl}\fontfamily{phv}\fontsize{5pt}{7pt}\selectfont\PPTeX@footline}}}
+\put(24.85,0.45){\makebox(0,0)[rt]{{\color{biobl}\fontfamily{phv}\fontsize{5pt}{7pt}\selectfont\theslide}}}
+\put(1,17.15){\makebox(0,0)[l]{\begin{minipage}{19.4\semcm}
+{\large\bfseries\color{bioaz}\begin{flushleft}
+#1
+\end{flushleft}}
+\end{minipage}}}
+#2
+\end{picture}}
+
+\newcommand{\clearslide}{\put(0,0.71){\color{biowh}\rule{25.4\semcm}{15.1\semcm}}}
+
+\newcommand{\defaulttextbox}[1]{\textbox{1,14.7}{23.4}{#1}}
+
+\newcommand{\defaulttextboxleft}[1]{\textbox{1,14.7}{11.0}{#1}}
+\newcommand{\defaulttextboxright}[1]{\textbox{13.4,14.7}{11.0}{#1}}
+
+\newcommand{\bioinfsimpletextslide}[2]{\bioinfslide{#1}{%
+\defaulttextbox{#2}}}
+
+\endinput

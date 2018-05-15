@@ -1,0 +1,77 @@
+%-----------------------------------------------------------------------------------------------------------------
+% File: __TPpbla.tex
+%
+% Code for the first part of the preamble of TeXPower demos.
+% 
+% This file is input by others. Don't compile it separately.
+%
+%-----------------------------------------------------------------------------------------------------------------
+% Autor: Stephan Lehmke <Stephan.Lehmke@cs.uni-dortmund.de>
+%
+% v0.0.1 Mar 20, 2000: First version for the pre-alpha release of TeXPower.
+% v0.0.2 Mar 21, 2000: Remedying an incompatibility between LaTeX releases concerning the implementation of
+%                      \@iiiparbox (Apr 11: this code is now part of texpower.sty). 
+% v0.0.3 Apr 11, 2000: Color emphasis code moved into texpower.
+%
+
+\documentclass
+[%
+%-----------------------------------------------------------------------------------------------------------------
+% Document class options:
+% -----------------------
+%
+% Landscape slides formatted for letter paper fit most screen resolutions (more or less).
+%
+  letterpaper,%
+  landscape,%
+% 
+% The KOMA option makes powersem load scrartcl.cls instead of article.cls.
+%
+  KOMA,%
+% KOMA document class options are accepted.
+  smallheadings,%
+%
+% The calcdimensions option makes powersem calculate the slide dimensions automatically from paper size and margins.
+  calcdimensions,%
+%
+% The display option sets everything up for producing slides to be displayed interactively.
+% This option is also recognized by the texpower package.
+%
+  display%
+%-----------------------------------------------------------------------------------------------------------------
+]
+%-----------------------------------------------------------------------------------------------------------------
+% Document class powersem, based on seminar.cls for simulating ppower via latex+distiller (instead of pdflatex).
+%
+{powersem}
+%-----------------------------------------------------------------------------------------------------------------
+
+
+%-----------------------------------------------------------------------------------------------------------------
+% Set slide margins rather small for maximum use of space. This is a demo, remember.
+%
+\renewcommand{\slidetopmargin}{5mm}
+\renewcommand{\slidebottommargin}{5mm}
+
+\renewcommand{\slideleftmargin}{5mm}
+\renewcommand{\sliderightmargin}{5mm}
+
+
+%-----------------------------------------------------------------------------------------------------------------
+% We need some more packages...
+%
+
+\usepackage{url}
+
+\usepackage[latin1]{inputenc}
+
+% One more Text emphasis command...
+
+\let\name=\textsc
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% fill-column: 120
+%%% TeX-master: nil
+%%% End: 

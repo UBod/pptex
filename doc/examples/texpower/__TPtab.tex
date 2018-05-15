@@ -1,0 +1,61 @@
+%-----------------------------------------------------------------------------------------------------------------
+% File: __TPtab.tex
+%
+% Code for the tabular example for the package texpower.sty.
+% 
+% This file is input by others. Don't compile it separately.
+%
+%-----------------------------------------------------------------------------------------------------------------
+% Autor: Stephan Lehmke <Stephan.Lehmke@cs.uni-dortmund.de>
+%
+% v0.0.1 Mar 20, 2000: First version for the pre-alpha release of TeXPower.
+%
+% v0.0.2 Apr 27, 2000: Some small changes in preparation of the update to TeXpower v0.0.7.
+%
+
+
+%-----------------------------------------------------------------------------------------------------------------
+%
+\makeslidetitle{\macroname{stepwise} Example: A Tabular}
+
+% In the following, a tabular object is built incrementally. 
+% Observe how & and \\ are placed inside the following step to avoid `opening' empty cells.
+% The macro \tabend is redefined to `replace' the final \hline by \cline's when a line is not yet complete.
+%
+  \newcommand{\tabend}{\\\hline}%
+
+  \stepwise
+  {%
+    \hrule height 0pt\relax% This is neccessary to avoid a glitch in vertical spacing. Don't ask me why. I'll try to get
+                           % this right until the first alpha version.
+    \begin{center}
+      \step
+      {%
+        \begin{tabular}{|l|l|l|}
+          \hline
+          They can & be built & line by line%
+          \step{\\\hline or cell\renewcommand{\tabend}{\\\cline{1-1}}}%
+          \step{& by\renewcommand{\tabend}{\\\cline{1-2}}}%
+          \step{& cell\renewcommand{\tabend}{\\\hline}}%
+          \step
+          {%
+            \\\hline
+                                %
+                                % Again, \step's are nested inside each other...
+                                %
+            \step{or}&\step{like}&\step{this.}%
+            }%
+          \step{\\\hline But\renewcommand{\tabend}{\\\cline{1-1}}}%
+          \step{& beware\renewcommand{\tabend}{\\\cline{1-2}}}%
+          \step{& of cells growing horizontally!\renewcommand{\tabend}{\\\hline}}%
+          \tabend
+        \end{tabular}%
+        }%
+    \end{center}%
+    }%
+
+%%% Local Variables: 
+%%% mode: latex
+%%% fill-column: 120
+%%% TeX-master: "tabexample"
+%%% End: 

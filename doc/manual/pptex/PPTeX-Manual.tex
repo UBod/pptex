@@ -1,0 +1,645 @@
+\documentclass[twoside,a4paper,11pt]{article}
+
+\usepackage{exscale}
+\usepackage{latexsym}
+\usepackage{docu}
+\usepackage{a4wide}
+
+\usepackage{times}
+\renewcommand{\ttdefault}{cmtt}
+
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=false,
+   pdfborder=0 0 0,
+   pdftitle=Preparing Slide Presentations with the PPTeX Package,
+   pdfauthor=Ulrich Bodenhofer}
+
+
+\def\AMS{{\protect\usefont{OMS}{cmsy}{m}{n}%
+A\kern-.1667em\lower.5ex\hbox{M}\kern-.125emS}}
+
+\def\PPTeX{{\upshape PP\TeX{}}}
+
+
+\title{\bfseries\sffamily\LARGE Preparing Slide Presentations with the\\ \PPTeX\ Package}
+\author{\sffamily\Large Ulrich Bodenhofer ({\em
+ulrich@bodenhofer.com})}
+\date{}
+
+\begin{document}
+\maketitle
+
+\vspace*{1cm}
+
+\tableofcontents
+\clearpage
+
+
+\section{Introduction}
+
+In 2000, the author developed a \LaTeX\ document class for his
+former employer, Software Competence Center Hagenberg, with the aim
+to emulate the corporate design of this institution's MS PowerPoint
+template. The given package---{\tt pptex.cls}---is a new version and
+generalization of this package (that was called {\tt
+scch-slides.cls} then). The main difference between the former class
+{\tt scch-slides.cls} and {\tt pptex.cls} is that different layouts,
+including the SCCH layout, are possible. The set of available
+layouts is extensible. Moreover, {\tt pptex.cls} now supports a 4:3
+page/slide format of 10$\times$7.5in by default (the same as MS
+PowerPoint), whereas {\tt scch-slides.cls} was only able to use A4
+format.
+
+The PP\TeX\ slide document class  can be used in the following way:
+\begin{quote}
+|\documentclass|\oarg{options}|{pptex}|
+\end{quote}
+
+The following options are available:
+\begin{description}
+\item[\texttt{display}] enables animation features for beamer
+presentations
+\item[\texttt{printout}] turns off all animation features (recommended for
+handouts, printed slides, etc.)
+\item[\texttt{startblank}] adds a blank black slide as first page
+\item[\texttt{endblank}] adds a blank black slide as last page
+\item[\texttt{a4paper}] switches back to A4 paper (only for
+backwards compatibility; not recommended)
+\end{description}
+
+Moreover, the name of a layout has to be passed as an option as
+well. If no layout is specified, \LaTeX\ displays an error message.
+
+The whole class is designed for use\NOTE{} with PDF\LaTeX\ only. Any
+attempt to process a \PPTeX\ document with ordinary \LaTeX\ results
+in an error message.
+
+\section{Layouts}
+
+As mentioned above, a layout has to be specified as option in the
+\verb+\documentclass+ command. Presently, three layouts are
+available:
+\begin{description}
+\item[\texttt{jku}] layout resembling the new corporate design of
+Johannes Kepler University Linz (JKU, 2015)
+\item[\texttt{bioinf}] layout in the corporate design of the
+Institute of Bioinformatics, Johannes Kepler University Linz
+\item[\texttt{jkuold}] layout resembling the old corporate design of
+Johannes Kepler University Linz (JKU, around 2003)
+\item[\texttt{scch}] layout corresponding to the MS PowerPoint
+template of Software Competence Center Hagenberg (SCCH, as of 2006)
+\item[\texttt{scchh}] the same as \texttt{scchh}, but without using
+the Verdana font
+\item[\texttt{scchold}] obsolete layout corresponding to the previous MS PowerPoint
+template of Software Competence Center Hagenberg (SCCH)
+\item[\texttt{uda}] layout for presentations related to Austrian Partner of International Universities (UDA)
+\item[\texttt{udaold}] obsolete layout for presentations related to previous Unversity of Derby in Austria (UDA)
+\end{description}
+The layouts \verb+jkuold+, \verb+scchold+ and \verb+udaold+ are
+available for 4:3 format (default) and A4 format (when the
+\verb+a4paper+ option is being used) in order to provide a
+compatibility mode for older presentations. The layouts
+\verb+jku+, \verb+bioinf+, \verb+scch+, \verb+scchh+  and \verb+uda+ are newer
+ones and have been developed when \PPTeX\ was already available, so
+backwards compatibility is not an issue for these layouts.
+
+It is possible to define new layouts, but it is not yet documented
+how to do this. If you are interested in writing a new layout,
+please contact the author of the package.
+
+\section{Basic Usage}
+
+The \verb+pptex+ class is based on the document class \verb+seminar+
+by Timothy Van Zandt and makes use of the \TeX Power bundle written
+by Stephan Lehmke.
+
+Similar to the classes \verb+seminar+ and \verb+slides+, slide text
+must be enclosed in the \verb+slide+ environment. Internally, the
+\verb+pptex+ class works with \verb+picture+ environments. In the
+following, we will discuss the convenience functions that have been
+implemented in order to make work with these picture environments
+easier.
+
+\begin{decl}
+|\titleslide|\oarg{author}\arg{title}\arg{subtitle}
+\end{decl}
+\noindent Produces a title slide, where the meaning of the arguments
+should be self-explanatory. Please note that the optional argument
+is not used by all layouts (cf.~\ref{ssec:titleslide}).
+
+\begin{decl}
+|\simpletextslide|\arg{headline}\arg{text}
+\end{decl}
+\noindent Produces a slide with one single large text box. The
+second argument may contain any valid \LaTeX\ text (including
+mathematical formulas, the environments \verb+itemize+,
+\verb+enumerate+, \verb+description+, \verb+list+, \verb+verse+,
+\verb+quote+, \verb+quotation+, \verb+verbatim+, \verb+center+,
+\verb+flushleft+, \verb+flushright+, and many more).
+
+Here is a simple example how to use \verb+\titleslide+ and
+\verb+\simpletextslide+:
+\begin{quote}
+\begin{verbatim}
+\documentclass[display,jku]{pptex}
+
+\setfootline{Ulrich Bodenhofer}
+
+\begin{document}
+
+\begin{slide}
+\titleslide{PP\TeX}{% title
+A Short Introduction} % subtitle
+\end{slide}
+
+\begin{slide}
+\simpletextslide{Overview}{%
+\begin{itemize}
+\item Motivation
+\item Basic usage
+\item Using layouts
+\item Miscellaneous issues
+\end{itemize}}
+\end{slide}
+
+\end{document}
+\end{verbatim}
+\end{quote}
+
+\begin{decl}
+|\simpleslide|\arg{headline}\arg{body}
+\end{decl}
+\noindent Produces an empty slide. The argument \textarg{body} may
+only contain \verb+\put+ commands, since the surrounding environment
+is a \verb+picture+ environment. However, the \verb+pptex+ class
+contains several convenience macros for several often used
+structures which will be described next.
+
+\subsection{Convenience Macros for Positioning Text and Pictures
+Freely}
+
+The following macros may only be used inside the \textarg{body}
+argument of the \verb+\simpleslide+ command.
+
+\begin{decl}
+|\textbox|\oarg{align}\arg{xpos,ypos}\arg{w}\arg{text}
+\end{decl}
+\noindent This command puts a text box of width \textarg{w} with
+content \textarg{text} at position (\textarg{xpos,ypos}).
+Normally, the text box is placed such that its left upper corner
+is at position (\textarg{xpos,ypos}). This can be overridden with
+the optional argument \textoarg{align}, the effect of which is
+the same as of the optional argument of the \verb+\makebox+
+command inside \verb+picture+ environments:
+\begin{description}
+\item[{\tt lt} (default):] upper left corner at (\textarg{xpos,ypos})
+\item[{\tt l}:] middle of left edge at (\textarg{xpos,ypos})
+\item[{\tt lb}:] lower left corner at (\textarg{xpos,ypos})
+\item[{\tt rt}:] upper right corner at (\textarg{xpos,ypos})
+\item[{\tt r}:] middle of right edge at (\textarg{xpos,ypos})
+\item[{\tt rb}:] lower right corner at (\textarg{xpos,ypos})
+\item[{\tt t}:] middle of top edge at (\textarg{xpos,ypos})
+\item[{\tt b}:] middle of bottom edge at (\textarg{xpos,ypos})
+\end{description}
+Note that the coordinates (\textarg{xpos,ypos}) need to be scalars
+(no units!). The internal unit of measure is cm relative to the
+lower left corner of the slide (total size 10$\times$7.5 in $=$
+25.4$\times$19.05 cm; 29.7$\times$21cm if the option \verb+a4paper+
+is used); analogous for the width \textarg{w}. Concerning the
+argument \textarg{text}, the same rules as for the second argument
+of the \verb+\simpletextslide+ command apply (see above).
+
+\begin{decl}
+|\itembox|\oarg{align}\arg{xpos,ypos}\arg{w}\arg{items} \\
+|\enumbox|\oarg{align}\arg{xpos,ypos}\arg{w}\arg{items}
+\end{decl}
+\noindent These two convenience functions are basically the same as
+\verb+\textbox+ except that they already contain \verb+itemize+ and
+\verb+enumerate+ environments, respectively.
+
+\begin{decl}
+|\clearbox|\oarg{align}\arg{xpos,ypos}\arg{content}
+\end{decl}
+\noindent Unlike the above three macros, this command allows to
+create a simple box without any internal pre-assumption about its
+content. This command is mainly useful for inserting graphics.
+
+Examples for most of these macros can be found in the enclosed
+demo file \verb+slidedemo.tex+.
+
+\subsection{Further Convenience Macros for Positioning Text and Pictures}
+
+Though the macros in the previous subsection are very flexible, they are
+not very user-friendly. In order to provide the user with some simpler, but
+more flexible convenience functions, the layouts \verb+jku+ and \verb+bioinf+
+provide the following macro:
+\begin{decl}
+|\defaulttextbox|\arg{text}
+\end{decl}
+This macro, in conjunction with \verb+\simpleslide+, is equivalent to the
+functionality of \verb+\simpletextslide+. However, now the entire box can be
+animated and complemented by additional boxes (e.g. with additional text or
+figures).
+
+For two-column layouts, the following two macros are available:
+\begin{decl}
+|\defaulttextboxleft|\arg{text} \\
+|\defaulttextboxright|\arg{text}
+\end{decl}
+
+\subsection{The Foot Line}
+
+\begin{decl}
+|\setfootline|\arg{footline}
+\end{decl}
+\noindent Determines the content of foot line.
+This command can be supplied in the preamble of the document or
+inside the document whenever a change of the content of the foot
+line is desired.
+
+\subsection{Lengths}\label{ssec:lengths}
+
+Since the \verb+seminar+ class works with magnifications, an
+alternative model of lengths is used internally. Therefore,
+unfortunately, the usual font-independent \LaTeX\ lengths (units
+\verb+cm+, \verb+mm+, and \verb+in+) cannot be used in the normal
+way.\NOTE{} Instead, the macros \verb+\semcm+ and \verb+\semin+
+need to be used in order to obtain the desired results.
+Fortunately, no restrictions apply to the font-dependent units
+\verb+em+ and \verb+ex+.
+
+\subsection{Graphics Inclusion}
+
+Graphics inclusion works as usual. However, the user should take
+the following two points into account:
+\begin{enumerate}
+\item Since the \verb+scch-slides+ class is designed for use with
+PDF\LaTeX, only JPEG, PDF, and PNG files can be included, but no
+encapsulated PostScript (EPS) files. EPS files must converted to
+PDF first. This can be done by the GhostScript-based tool
+\verb+epstopdf+ which is available on the SCCH common software
+server.
+\item As described in \ref{ssec:lengths}, font-independent lengths
+cannot be used in a straightforward way. Use the macros
+\verb+\semcm+ and \verb+\semin+ instead!
+\end{enumerate}
+It is recommended to place pictures inside \verb+\clearbox+
+environments, although the other box commands and
+\verb+\simpletextslide+ also work. A simple example:
+\begin{quote}
+\begin{verbatim}
+\clearbox{3,14}{\includegraphics[width=7\semcm]{dummy.jpg}}
+\end{verbatim}
+\end{quote}
+
+\subsection{Animation}
+
+The \verb+pptex+ class makes use of the \TeX Power bundle's
+animation features. Consequently, the reader is referred to the
+enclosed manual for more details. Be aware, however, that the
+\verb+pptex+ class makes excessive use of the \verb+picture+
+environment. Therefore, the \verb+\pause+ command does\NOTE{} not
+work. Instead, the constructs \verb+\stepwise+, \verb+\step+, and
+all the related macros must be used in order to make animation work
+properly. More information is available in the enclosed \TeX Power
+manual and the example files.
+
+\subsection{Hyperlinks}
+
+The package \verb+hyperref+ is included by default. Therefore, all
+its features can be used in \PPTeX\ slide presentations without any
+restrictions. See the \verb+hyperref+ manual for more details.
+
+\subsection{Packages}
+
+The following packages are included by \verb+pptex.cls+ and need not
+be included in the preamble of the document:
+\begin{enumerate}
+\item \verb+color.sty+
+\item \verb+graphicx.sty+
+\item \verb+hyperref.sty+
+\item \verb+url.sty+
+\item \verb+texpower.sty+
+\end{enumerate}
+
+The \verb+pptex+ document class should work properly with most
+standard packages, in particular those belonging to the \AMS\LaTeX\
+bundle.
+
+\section{Layout-Dependent Behavior}
+
+While \PPTeX\ tries to maintain layout independence where possible,
+there are some functions/issues that depend on the layout that is
+actually being used.
+
+\subsection{Optional argument of \texttt{titleslide}
+command}\label{ssec:titleslide}
+
+In the layouts \verb+jku+, \verb+bioinf+, \verb+uda+ and
+\verb+udaold+, the \verb+titleslide+ command ignores the optional
+argument,\NOTE{} whereas the \verb+scch+ layout uses it to typeset
+the typical four-line author box to the right of the logo.
+
+\subsection{Page formats}
+
+Although the page/slide size is the same independent of the layout,
+the actually available space for text and drawings may be different
+for different layouts. The reason is simple that logos and graphical
+elements occupy differently much space. So it is almost sure that a
+\PPTeX\ document that has been written using the above documented
+commands compiles well with different layouts.\NOTE{} It is likely,
+however, that adaptations of positions of text and graphics or
+adaptations of font sizes are necessary if the layout is changed.
+
+\subsection{Additional fonts}
+
+The layout \verb+jku+ requires the font Arial Black and the layout
+\verb+scch+ requires Verdana to work correctly. The 
+
+\subsection{Colors}
+
+Different layouts may define different colors. These colors can be
+used as usual with the commands \verb+\color+, \verb+\textcolor+,
+\verb+\colorbox+, and \verb+\fcolorbox+ (see documentation on the
+\verb+color.sty+ package for more information). The layouts may also
+define different convenience macros for using the colors.
+
+
+\subsubsection{Layout \texttt{jku}}
+
+Internally, the colors \verb+jkublue+, \verb+jkupurple+, \verb+jkured+,
+\verb+jkuyellow+, \verb+jkugreen+, and \verb+jkulightblue+ are pre-defined
+according to the new JKU Corporate Design (2015).
+
+The following commands can be used to switch to the colors for highlighting.
+They can be used in the same way as \verb+\bf+:
+\begin{decl}
+|\blue| \\
+|\purple| \\
+|\red| \\
+|\yellow| \\
+|\green| \\
+|\lightblue|
+\end{decl}
+
+\subsubsection{Layout \texttt{bioinf}}
+
+Internally, the colors \verb+bioaz+ (dark blue of the square in the
+logo), \verb+biove+ (dark green, like the darker ends of the DNA
+strands in the logo), \verb+bioli+ (light green, like the lighter
+ends of the DNA strands in the logo), \verb+biowh+ (white), and
+\verb+biobl+ (black) are pre-defined.
+
+\begin{decl}
+|\green| \\
+|\blue|
+\end{decl}
+These commands can be used to switch to the colors for highlighting.
+They can be used in the same way as \verb+\bf+.
+
+\subsubsection{Layout \texttt{jkuold}}
+
+Internally, the colors \verb+jkure+ (ruby red), \verb+jkugr+ (medium
+gray), \verb+jkulg+ (light gray), \verb+jkuwh+ (white), and
+\verb+jkubl+ (black) are pre-defined.
+
+\begin{decl}
+|\red|
+\end{decl}
+This command can be used to switch to the colors for highlighting.
+It can be used in the same way as \verb+\bf+.
+
+\subsubsection{Layout \texttt{scch}}
+
+Internally, the colors \verb+scchre+ (ruby red), \verb+scchlg+
+(light gray), \verb+scchdg+ (dark gray), \verb+scchwh+ (white), and
+\verb+scchbl+ (black) are pre-defined, corresponding to the standard
+colors of the new SCCH corporate identity.
+
+\begin{decl}
+|\red|
+\end{decl}
+This command can be used to switch to the color that is standard for
+highlighting in the corresponding PowerPoint template. It can be
+used like a font switch (e.g. \verb+\bf+).
+
+\begin{decl}
+|\scchcopyright|
+\end{decl}
+This command prints the SCCH copyright notice ``\copyright\ Software
+Competence Center Hagenberg GmbH''. Note that this is also the
+default foot line.
+
+The standard SCCH PowerPoint layout uses Verdana\NOTE{} as default
+font for title and subtitle on title pages and for slide headings.
+The SCCH layout cannot be used if this font is not available to
+PDF\LaTeX. For instructions how to make Verdana usable for
+PDF\LaTeX, see Appendix \ref{app:verdana}.
+
+\subsubsection{Layout \texttt{scchh}}
+
+Works in the same way as the layout {\tt scch} with the difference
+that it does {\em not} use Verdana. It uses Helvetica instead, so
+files using the {\tt scch} layout should run smoothly on every
+up-to-date \LaTeX\ installation, regardless of whether Verdana is
+available or not.
+
+\subsubsection{Layout \texttt{oldscch}}
+
+Internally, the colors \verb+scchre+ (ruby red), \verb+scchye+
+(``\"Osterreichische Post'' yellow), \verb+scchgr+ (medium gray),
+\verb+scchwh+ (white), and \verb+scchbl+ (black) are pre-defined,
+corresponding to the standard colors of the previous SCCH corporate
+identity.
+
+\begin{decl}
+|\red| \\
+|\yellow|
+\end{decl}
+These commands can be used to switch to the colors which are
+standard for highlighting in the corresponding PowerPoint template.
+They can be used like font switches (e.g. \verb+\bf+).
+
+\subsubsection{Layout \texttt{uda}}
+
+The colors \verb+udaaz+ (dark blue), \verb+udagr+ (medium gray),
+\verb+udabg+ (very light steel blue), and \verb+udabl+ (black) are
+pre-defined.
+
+\begin{decl}
+|\blue|\\
+|\grey|
+\end{decl}
+As above, these commands can be used to switch to the colors for
+highlighting. It can be used in the same way as \verb+\bf+.
+
+
+\subsubsection{Layout \texttt{udaold}}
+
+The colors \verb+udati+ (similar to moss-green), \verb+udagr+
+(medium gray), \verb+udalg+ (light gray), \verb+udawh+ (white), and
+\verb+udabl+ (black) are pre-defined.
+
+\begin{decl}
+|\green|
+\end{decl}
+As above, this command can be used to switch to the colors for
+highlighting. It can be used in the same way as \verb+\bf+.
+
+\subsection{Layout-specific convenience macros}
+
+In the \verb+scch-slides+ package, the macros described above had
+different names, all starting with \verb+\scch+. In order to be
+independent of the chosen layout, this has been changed in \PPTeX.
+However, the three layouts still define all these macros in order to
+maintain backwards compatibility. A presentation that was written
+using the \verb+scch-slides+ class should still produce the same
+result if compiled with \verb+\documentclass[scch,a4paper]{pptex}+.
+
+
+\section{Further Caveats}
+
+\begin{enumerate}
+\item Animation is a delicate thing; if some arrangement of
+\verb+\step+ statements does not work, try different ones until
+the document is processed without error message. In particular,
+the first \verb+\item+ of a list environment (including
+\verb+itemize+, \verb+enumerate+, and \verb+description+) may not
+be surrounded by a \verb+\step+ statement.
+\item Slides in portrait format (corresponding to the
+\verb+slides*+ environment in the \verb+seminar+ class) are yet
+supported.
+\item When processing a \PPTeX\ document, a lot of
+garbage warnings and other messages are produced.
+\item The status of the \TeX Power bundle is still experimental,
+and so is the status of the \verb+pptex+ document class.
+\item The use of more than one layout within one presentation is
+currently not supported.
+\item Note that you cannot use optional arguments in optional
+arguments; bear that in mind when you use the optional argument of
+\verb+\titleslide+.
+\end{enumerate}
+
+\section{Related Documents}
+
+This document, more or less, only describes the specific features of
+the class \verb+pptex.cls +, which makes excessive use of other
+packages and classes, such as \verb+seminar.cls+,
+\verb+texpower.sty+, and \verb+hyperref.sty+. For detailed
+descriptions, see the enclosed manuals.
+
+\section{License Issues}
+
+
+All files included in this distribution that were written by Ulrich
+Bodenhofer are completely free. They may be downloaded, used,
+copied, distributed, modified, without any restrictions and without
+the prior acceptance of the author.
+
+However, this distribution also contains material from other
+authors, in particular, version 0.0.8f of Stephan Lehmke's TeXPower
+package. For these files, license restrictions may apply. Please
+check the headers of these files for further information.
+
+\appendix
+\section{Making TrueType Fonts Usable for \LaTeX\ and
+PDF\LaTeX}\label{app:verdana}
+
+In this appendix, we give instructions on how Verdana can be made
+available to \LaTeX/PDF\LaTeX. These instructions are based on the
+procedure described by Jens Wei\ss
+enburg,\footnote{\url{http://www.weissenburger.de/content/latex5/}}
+an update (and German translation) of the method previously
+described by Damir
+Rakityansky.\footnote{\url{http://www.radamir.com/tex/}} This
+procedure has worked perfectly on the author's system and has {\em
+not} been tested on other systems. So the author does, in no sense,
+guarantee that the procedure described in the following will work on
+other systems.
+
+\subsection*{Prerequisites}
+
+Your system needs \TeX\ tools for handling TrueType fonts, such as,
+{\tt ttf2tfm}, {\tt ttf2pk}, etc. These programs are included in
+recent versions of Mik\TeX\ and also in distributions for other platforms.
+Further make sure that the file \verb+T1-WGL4.enc+ is found on your system (search in the
+\verb+ttf2tfm+ sub-folder of your (local) \verb+texmf+ directory. If
+it is not there, download it from the Internet.
+
+\subsection*{Creating the font-specific files}
+
+Start from an empty folder and copy the relevant TTF files to this folder.
+For Verdana, these are the files \verb+verdana.ttf+ (regular), \verb+verdanab.ttf+ (bold),
+\verb+verdanai.ttf+ (italic), and \verb+verdanaz.ttf+ (bold italic). For Arial Black,
+this is the file \verb+ariblk.ttf+. Open a command/shell window and
+change to this directory containing the copy/copies of the
+TrueType file(s). 
+
+For producing the Verdana files, enter the following 12 commands (or put them into a shell script/batch program):
+\begin{quote}
+{\footnotesize\begin{verbatim}
+ttf2tfm verdana.ttf -q -T T1-WGL4.enc -v ecvrd.vpl recvrd.tfm >ttfonts.map
+ttf2tfm verdanab.ttf -q -T T1-WGL4.enc -v ecvrdb.vpl recvrdb.tfm >>ttfonts.map
+ttf2tfm verdanai.ttf -q -T T1-WGL4.enc -v ecvrdi.vpl recvrdi.tfm >>ttfonts.map
+ttf2tfm verdanaz.ttf -q -T T1-WGL4.enc -v ecvrdbi.vpl recvrdbi.tfm >>ttfonts.map
+ttf2tfm verdana.ttf -q -T T1-WGL4.enc -s .167 -v ecvrdo.vpl recvrdo.tfm >>ttfonts.map
+ttf2tfm verdanab.ttf -q -T T1-WGL4.enc -s .167 -v ecvrdbo.vpl recvrdbo.tfm >>ttfonts.map
+
+vptovf ecvrd.vpl ecvrd.vf ecvrd.tfm
+vptovf ecvrdb.vpl ecvrdb.vf ecvrdb.tfm
+vptovf ecvrdi.vpl ecvrdi.vf ecvrdi.tfm
+vptovf ecvrdbi.vpl ecvrdbi.vf ecvrdbi.tfm
+vptovf ecvrdo.vpl ecvrdo.vf ecvrdo.tfm
+vptovf ecvrdbo.vpl ecvrdbo.vf ecvrdbo.tfm
+\end{verbatim}}
+\end{quote}
+
+For producing the Arial Black files, enter the following commands (or put them into a shell script/batch program):
+\begin{quote}
+{\footnotesize\begin{verbatim}
+ttf2tfm ariblk.ttf -q -T T1-WGL4.enc -v ecarb.vpl recarb.tfm >ttfonts.map
+vptovf ecarb.vpl ecarb.vf ecarb.tfm
+\end{verbatim}}
+\end{quote}
+
+Note that it is essential that you use exactly the same file names
+for the destination files,\NOTE{} otherwise the font definitions in
+the files \verb+t1tvrd.fd+ and \verb+t1tarb.fd+ that are supplied with PP\TeX\ will not work.
+
+After having done this, you can delete all files ending with
+\verb+.vpl+.
+
+\subsection*{Installing the files such that \TeX\ finds them}
+
+\begin{enumerate}
+\item Place all \verb+.tfm+ files in a folder, where \TeX\ searches for \verb+.tfm+ files;
+recommended: create a sub-folder of \verb+fonts/tfm/+ in your
+\verb+localtexmf+ directory and move the files there.
+\item Place the \verb+.vf+ files in a folder, where \TeX\ searches for \verb+.vf+ files;
+recommended: create a sub-folder of \verb+fonts/vf/+ in your
+\verb+localtexmf+ directory and move the files there.
+\item Place the \verb+.ttf+ files in a folder, where \verb+ttf2pk+ can find them. I do not know enough about this,
+but at least for me \verb+localtexmf/fonts/ttf+ worked.
+\item Append the lines of the above created \verb+ttfonts.map+
+file to your system-wide \verb+ttfonts.map+ file (most probably in
+the \verb+ttf2tfm/base+ folder in your \verb+texmf+ directory)
+\item Once again, make sure that the file \verb+T1-WGL4.enc+ is correctly found on your
+system.
+\item Refresh the file name database.
+\end{enumerate}
+
+\subsection*{Caveats}
+\begin{itemize}
+\item The fonts' resolution may not be too good. If you zoom into the resulting PDFs,
+you will see that they are actually quite edgy. For screen/beamer
+presentations, however, the anti-aliasing capabilities of up-to-date
+PDF viewers are sufficient not to make the low resolution appear too
+annoying.
+\item As you may have seen from the output of the \verb+ttf2tfm+
+commands above, not all special characters can be translated. In
+particular, some ligatures (e.g.\ ff vs.\ f\/f) are not resolved and
+are treated as single characters by the new font.
+\end{itemize}
+
+\end{document}
