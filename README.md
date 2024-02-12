@@ -1,7 +1,7 @@
 # PPTeX - Yet Another LaTeX Package for Slide Presentations
 
 In 2000, the author developed a LaTeX document class for his former employer,
-[Software Competence Center Hagenber](http://www.scch.at/), with the aim to emulate the corporate
+[Software Competence Center Hagenberg](http://www.scch.at/), with the aim to emulate the corporate
 design of this institution's PowerPoint template. The given package pptex.cls is a new version
 and generalization of this package (that was called scch-slides.cls then). The main difference
 between the former class scch-slides.cls and pptex.cls is that different layouts, including
