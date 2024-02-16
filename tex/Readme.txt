@@ -1,13 +1,13 @@
 ========================================================
 
    PPTeX Installation Instructions and Release Notes
-   Version: 0.6 (2016/02/29)
+   Version: 0.7 (2024/02/16)
    Author: Ulrich Bodenhofer (ulrich@bodenhofer.com)
 
 ========================================================
 
 
-The ZIP file PPTeX-0.6-packages.zip includes the following:
+The ZIP file PPTeX-0.7-packages.zip includes the following:
 
 1. pptex.cls
 2. Pre-defined layouts:
@@ -54,7 +54,7 @@ new SCCH layout.
 Installing the files:
 =====================
 
-Unzip PPTeX-0.6-packages.zip and copy all the subfolders into a
+Unzip PPTeX-0.7-packages.zip and copy all the subfolders into a
 folder where LaTeX searches for files by default (some texmf or
 localtexmf directory).
 
@@ -62,7 +62,7 @@ Depending on the TeX distribution you use, it might be necessary to
 refresh the filename database. If you use MikTeX, follow the following
 steps:
 
-1) Open the "MikTeX Settings" (2.5) or "MikTeX options" (pre-2.5) dialog
+1) Open the "MikTeX Settings" (2.5 or later) or "MikTeX options" (pre-2.5) dialog
 2) Go to tab "General"
 4) Press "Refresh FNDB"
 
@@ -74,13 +74,15 @@ Testing the installation:
 =========================
 
 Your installation works if you can process one of the PPTeX demos
-included in the ZIP file PPTeX-0.6-doc.zip in the doc\examples\pptex
+included in the ZIP file PPTeX-0.7-doc.zip in the doc\examples\pptex
 subfolder.
 
 
 Modification track:
 ===================
 
+2024-02-16: Release 0.7 with additional layouts: FH OOe, HTL Leonding,
+            and UB (author)
 2016-02-29: Release 0.6 with new JKU layout and further
             minor adaptations
 2007-08-10: Release 0.5 with new SCCH layout(s) and further

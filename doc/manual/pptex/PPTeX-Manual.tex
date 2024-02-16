@@ -81,6 +81,12 @@ As mentioned above, a layout has to be specified as option in the
 \verb+\documentclass+ command. Presently, three layouts are
 available:
 \begin{description}
+\item[\texttt{fhooe}] layout resembling the corporate design of
+University of Applied Sciences Upper Austria (Fachhochschule Ober\"osterreich --- FH O\"O),
+with international logo
+\item[\texttt{htll}] layout resembling the corporate design of
+HTBLA Leonding
+\item[\texttt{ub}] clean steelblue layout used by author for some time (similar to uda, but without logos)
 \item[\texttt{jku}] layout resembling the new corporate design of
 Johannes Kepler University Linz (JKU, 2015)
 \item[\texttt{bioinf}] layout in the corporate design of the
@@ -364,6 +370,47 @@ used as usual with the commands \verb+\color+, \verb+\textcolor+,
 \verb+\colorbox+, and \verb+\fcolorbox+ (see documentation on the
 \verb+color.sty+ package for more information). The layouts may also
 define different convenience macros for using the colors.
+
+
+
+\subsubsection{Layout \texttt{fhooe}}
+
+Internally, the colors \verb+fhred+, \verb+fhlre+ (light red), \verb+fhdg+ (dark gray),
+\verb+fhlg+ (light gray), \verb+fhvlg+ (very light gray), \verb+fhmg+ (medium gray), \verb+fhwh+ (white),
+and \verb+fhbl+ (black) are pre-defined.
+
+The following commands can be used to switch to the color to red for highlighting.
+They can be used in the same way as \verb+\bf+:
+\begin{decl}
+|\fhred| \\
+|\red|
+\end{decl}
+
+\subsubsection{Layout \texttt{htll}}
+
+Internally, the colors \verb+htlred+, \verb+htldg+ (dark gray),
+\verb+htllg+ (light gray), \verb+htlwh+ (white),
+and \verb+htlbl+ (black) are pre-defined.
+
+The following commands can be used to switch to the color to red for highlighting.
+They can be used in the same way as \verb+\bf+:
+\begin{decl}
+|\htlred| \\
+|\red|
+\end{decl}
+
+\subsubsection{Layout \texttt{ub}}
+
+The colors \verb+ubaz+ (dark blue), \verb+ubgr+ (medium gray),
+\verb+ubbg+ (very light steel blue), and \verb+ubbl+ (black) are
+pre-defined.
+
+\begin{decl}
+|\blue|\\
+|\grey|
+\end{decl}
+As above, these commands can be used to switch to the colors for
+highlighting. It can be used in the same way as \verb+\bf+.
 
 
 \subsubsection{Layout \texttt{jku}}

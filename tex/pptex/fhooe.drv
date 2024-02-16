@@ -1,0 +1,117 @@
+%
+%
+% driver for PPTeX document class: FHOOE Slides (with 10x7.5in paper)
+%
+% last revision 2020-09-15 by Ulrich Bodenhofer
+%
+%
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+
+\ProvidesFile{fhooe.drv}[2020/09/16 FH OOe Slide Class Driver]
+
+%
+% font customizations
+%
+\renewcommand{\rmdefault}{phv}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{pcr}
+
+%
+% redefine colors
+%
+\definecolor{fhred}{rgb}{0.75,0.01,0.09}
+\definecolor{fhlre}{rgb}{1.00,0.60,0.64}
+\definecolor{fhdg}{rgb}{0.37,0.37,0.37}
+\definecolor{fhlg}{rgb}{0.75,0.75,0.75}
+\definecolor{fhvlg}{rgb}{0.90,0.90,0.90}
+\definecolor{fhmg}{rgb}{0.50,0.50,0.50}
+\definecolor{fhwh}{rgb}{1.00,1.00,1.00}
+\definecolor{fhbl}{rgb}{0.00,0.00,0.00}
+
+\replacecolor{pagecolor}{fhwh}
+\replacecolor{textcolor}{fhbl}
+
+\newcommand{\red}{\color{fhred}}
+\newcommand{\fhred}{\color{fhred}}
+
+%
+% hyperref setup
+%
+\iffullscreen
+\hypersetup{bookmarksopen,colorlinks,urlcolor=fhdg,linkcolor=fhdg,pdfpagemode=FullScreen}
+\else
+\hypersetup{bookmarksopen,colorlinks,urlcolor=fhdg,linkcolor=fhdg}
+\fi
+
+%
+% set item and enum labels
+%
+\renewcommand{\labelitemi}{{\red --}}
+\renewcommand{\labelitemii}{{\red $>$}}
+\renewcommand{\labelitemiii}{{\red --}}
+\renewcommand{\labelitemiv}{{\red $>$}}
+\renewcommand{\labelenumi}{{\red\theenumi.}}
+\renewcommand{\labelenumii}{{\red\theenumii.}}
+\renewcommand{\labelenumiii}{{\red\theenumiii.}}
+\renewcommand{\labelenumiv}{{\red\theenumiv.}}
+
+%
+% page numbering
+%
+\newcommand{\fhooeprefix}{PAGE}
+\newcommand{\fhooesep}{$|$}
+
+%
+% declare slide environments
+%
+
+\newcommand{\fhooetitleslide}[2]{%
+\setslidelength{\unitlength}{1cm}
+\pdfbookmark[-1]{#2}{slide\theslide}
+\begin{picture}(25.4,19.05)
+\PPTeX@background
+\put(2.00,7.00){\makebox(0,0)[lb]{\begin{minipage}{21.4\semcm}
+{\huge\fontencoding{T1}\fontfamily{phv}\fontseries{b}\selectfont\begin{flushleft}
+#1
+\end{flushleft}}
+\end{minipage}}}
+\put(2.00,6.00){\makebox(0,0)[lt]{\begin{minipage}{21.4\semcm}
+{\Large\begin{flushleft}
+#2
+\end{flushleft}}
+\end{minipage}}}
+\put(7.70,17.57){\makebox(0,0)[lb]{{\color{fhred}\rule{16.21\semcm}{0.10\semcm}}}}
+\put(1.48,16.05){\makebox(0,0)[lb]{\includegraphics[width=5.8\semcm]{FHOOE_logo_full.jpg}}}
+\end{picture}}
+
+\newcommand{\fhooeslide}[2]{%
+\setslidelength{\unitlength}{1cm}
+\pdfbookmark[0]{#1}{slide\theslide}
+\begin{picture}(25.4,19.05)
+\PPTeX@background
+\put(1.6,1.55){\makebox(0,0)[lb]{{\color{fhred}\rule{18.40\semcm}{0.1\semcm}}}}
+\put(23.8,0.7){\makebox(0,0)[rb]{\includegraphics[width=3.5\semcm]{FHOOE_logo_full.jpg}}}
+\put(1.6,1.35){\makebox(0,0)[lt]{\begin{minipage}{17\semcm}
+\fontfamily{phv}\fontsize{5pt}{7pt}\selectfont\fhooeprefix\ \theslide\ \fhooesep\ \PPTeX@footline
+\end{minipage}}}
+\put(2.2,16.51){\makebox(0,0)[lb]{\begin{minipage}{21.0\semcm}
+{\fontfamily{phv}\fontsize{14pt}{14pt}\fontseries{b}\selectfont\begin{flushleft}
+#1
+\end{flushleft}}
+\end{minipage}}}
+#2
+\end{picture}}
+
+\newcommand{\clearslide}{\put(0,2.1){\color{fhwh}\rule{25.4\semcm}{13.5\semcm}}}
+
+\renewcommand{\textboxdefaultfont}{\small}
+
+\newcommand{\defaulttextbox}[1]{\textbox{2.2,15.47}{21.0}{{\textboxdefaultfont #1}}}
+
+\newcommand{\defaulttextboxleft}[1]{\textbox{2.2,15.47}{10}{{\textboxdefaultfont #1}}}
+\newcommand{\defaulttextboxright}[1]{\textbox{13.20,15.47}{10}{{\textboxdefaultfont #1}}}
+
+\newcommand{\fhooesimpletextslide}[2]{\fhooeslide{#1}{%
+\defaulttextbox{#2}}}
+
+\endinput

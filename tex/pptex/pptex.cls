@@ -34,6 +34,7 @@ PDFLaTeX}{Process this document with PDFLaTeX}
 \DeclareOption{printout}{\PassOptionsToPackage{printout}{texpower}\fullscreenfalse}
 \DeclareOption{startblank}{\startblanktrue}
 \DeclareOption{a4paper}{\oldpptextrue}
+\DeclareOption{nofullscreen}{\fullscreenfalse}
 \DeclareOption{endblank}{\AtEndDocument{\begin{slide}
 \blackslide\end{slide}}}
 
@@ -143,6 +144,9 @@ PDFLaTeX}{Process this document with PDFLaTeX}
 % One more Text emphasis command...
 
 \let\name=\textsc
+
+% default font in text boxes
+\newcommand{\textboxdefaultfont}{\normalsize}
 
 %
 % start with blank page
