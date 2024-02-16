@@ -13,7 +13,7 @@ The basic philosophy of PPTeX is borrowed from MS PowerPoint (and this is also w
 stems from), i.e. to provide the user a drawing canvas where content can be placed in boxes
 at more or less arbitrary positions (but with some pre-defined layout of course). That is also
 the main point in which PPTeX differs from the other LaTeX classes for producing slide presentations
-like [prosper](http://prosper.sourceforge.net/), [Beamer](http://latex-beamer.sourceforge.net/),
+like [prosper](http://prosper.sourceforge.net/), [Beamer](https://github.com/josephwright/beamer),
 [TeXpower](http://texpower.sourceforge.net/), etc. PPTeX uses Version 0.0.8f of Stephan Lehmke's
 [TeXpower](http://texpower.sourceforge.net/) package for animations.
 
