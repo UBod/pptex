@@ -43,6 +43,12 @@ version of TeXPower were not successful. The user is advised, therefore,
 not to have any other version of TeXPower on his/her system except
 Version 0.0.8f which is enclosed in the ZIP file pptex.zip.
 
+More recent versions of LaTeX are no longer compatible with all packages
+PPTeX depends on. This issue is currently unsolved. However, there is a
+workaround. By including the following line as first line of the LaTeX
+source document (even before \documentclass{}), the issue should be solved:
+
+   \RequirePackage[2020-02-02]{latexrelease}
 
 Credits:
 ========
