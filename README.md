@@ -37,6 +37,13 @@ version of [TeXpower](http://texpower.sourceforge.net/) were not successful. The
 therefore, not to have any other version of [TeXpower](http://texpower.sourceforge.net/)
 on his/her system except Version 0.0.8f which is enclosed in this distribution.
 
+More recent versions of LaTeX are no longer compatible with all packages PPTeX depends on. This issue is
+currently unsolved. However, there is a workaround. By including the following line as first line of the LaTeX source document (even before
+`\documentclass{}`), the issue should be solved:
+```
+\RequirePackage[2020-02-02]{latexrelease}
+```
+
 ## Installation
 
 * Download and unzip the latest version of PPTeX-X.X-packages.zip from the
