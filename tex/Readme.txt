@@ -1,13 +1,13 @@
 ========================================================
 
    PPTeX Installation Instructions and Release Notes
-   Version: 0.7 (2024/02/16)
+   Version: 0.8 (2025/08/27)
    Author: Ulrich Bodenhofer (ulrich@bodenhofer.com)
 
 ========================================================
 
 
-The ZIP file PPTeX-0.7-packages.zip includes the following:
+The ZIP file PPTeX-0.8-packages.zip includes the following:
 
 1. pptex.cls
 2. Pre-defined layouts:
@@ -39,16 +39,28 @@ Compatibility issues:
 
 PPTex has been developed using Version 0.0.8f of Stephan Lehmke's
 TeXPower package. Recent attempts to port PPTeX to the recent 0.2
-version of TeXPower were not successful. The user is advised, therefore,
-not to have any other version of TeXPower on his/her system except
-Version 0.0.8f which is enclosed in the ZIP file pptex.zip.
+version of TeXPower were not successful (it generally works, but annoying
+blank pages may be inserted between animated pages). The user is advised,
+therefore, not to have any other version of TeXPower on his/her system except
+Version 0.0.8f which is enclosed in this very ZIP file or at least
+to make sure that the files in the enclosed texpower/ folder have priority
+over any other installation of TeXPower on his/her system.
 
-More recent versions of LaTeX are no longer compatible with all packages
-PPTeX depends on. This issue is currently unsolved. However, there is a
-workaround. By including the following line as first line of the LaTeX
-source document (even before \documentclass{}), the issue should be solved:
+Previously, it was recommended to use the following in order to avoid
+troubles on newer LaTeX systems:
 
    \RequirePackage[2020-02-02]{latexrelease}
+
+This is no longer necessary and may lead to errors. Instead, make sure
+the the packages that TeXPower depends on are installed and up-to-date:
+
+   seminar
+   koma-script
+   soul
+
+Older versions of these packages have previously been included in the
+PPTeX release, but have been removed with version 0.8.
+
 
 Credits:
 ========
@@ -60,17 +72,12 @@ new SCCH layout.
 Installing the files:
 =====================
 
-Unzip PPTeX-0.7-packages.zip and copy all the subfolders into a
+Unzip PPTeX-0.8-packages.zip and copy all the subfolders into a
 folder where LaTeX searches for files by default (some texmf or
 localtexmf directory).
 
 Depending on the TeX distribution you use, it might be necessary to
-refresh the filename database. If you use MikTeX, follow the following
-steps:
-
-1) Open the "MikTeX Settings" (2.5 or later) or "MikTeX options" (pre-2.5) dialog
-2) Go to tab "General"
-4) Press "Refresh FNDB"
+refresh the filename database.
 
 If you want to use the new SCCH layout, you need to have the Verdana
 TrueType font accessible to PDFLaTeX. See manual for instructions.
@@ -80,13 +87,15 @@ Testing the installation:
 =========================
 
 Your installation works if you can process one of the PPTeX demos
-included in the ZIP file PPTeX-0.7-doc.zip in the doc\examples\pptex
+included in the ZIP file PPTeX-0.8-doc.zip in the doc\examples\pptex
 subfolder.
 
 
 Modification track:
 ===================
 
+2025-08-27: Release 0.8: some fixes to make PPTeX compatible with the latest
+            LaTeX release
 2024-02-16: Release 0.7 with additional layouts: FH OOe, HTL Leonding,
             and UB (author)
 2016-02-29: Release 0.6 with new JKU layout and further

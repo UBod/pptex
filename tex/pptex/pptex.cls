@@ -79,6 +79,7 @@ PDFLaTeX}{Process this document with PDFLaTeX}
 \bye
 \fi
 
+
 %
 % load class powersem
 %
@@ -87,19 +88,19 @@ PDFLaTeX}{Process this document with PDFLaTeX}
 %
 % load various packages
 %
-\usepackage{url}
+\RequirePackage{url}
 
-\usepackage[latin1]{inputenc}
+\RequirePackage[latin1]{inputenc}
 
-\usepackage[T1]{fontenc}
+\RequirePackage[T1]{fontenc}
 
-\usepackage{fixseminar}
+\RequirePackage{fixseminar}
 
-\usepackage{texpower}
+\RequirePackage{texpower}
 
-\usepackage{soul}
+\RequirePackage{soul}
 
-\usepackage{hyperref}
+\RequirePackage{hyperref}
 
 %
 % page settings
@@ -170,7 +171,7 @@ PDFLaTeX}{Process this document with PDFLaTeX}
 
 \definecolor{PPTeXBlack}{rgb}{0.0,0.0,0.0}
 
-\newcommand{\black}{\color{PPTeXBlack}}
+\def\black{\color{PPTeXBlack}}
 
 \newcommand{\blackslide}{%
 \setslidelength{\unitlength}{1cm}
