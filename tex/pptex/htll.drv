@@ -28,8 +28,8 @@
 \replacecolor{pagecolor}{htlwh}
 \replacecolor{textcolor}{htlbl}
 
-\newcommand{\red}{\color{htlred}}
-\newcommand{\htlred}{\color{htlred}}
+\def\red{\color{htlred}}
+\def\htlred{\color{htlred}}
 
 %
 % hyperref setup

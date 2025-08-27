@@ -1,0 +1,62 @@
+\documentclass[display,htll]{pptex}
+
+\setfootline{Ulrich Bodenhofer}
+
+\begin{document}
+\begin{slide}
+\titleslide{PP\TeX}{A Short Demo}
+\end{slide}
+
+\begin{slide}
+\simpletextslide{Standard Itemization}{%
+\begin{itemize}\setlength{\itemsep}{0pt}
+\item Mama got a sqeezebox\dots
+\item daddy
+\item never sleeps
+\item at night
+\end{itemize}}
+\end{slide}
+
+\begin{slide}
+\stepwise{\simpletextslide{Standard Itemization (animated)}{%
+\step{\begin{itemize}\setlength{\itemsep}{0pt}
+\item Mama got a sqeezebox\dots
+\step{\item daddy}
+\step{\item never sleeps}
+\step{\item at night}
+\end{itemize}}}}
+\end{slide}
+
+\begin{slide}
+\simpleslide{Left \&\ Right}{%
+\defaulttextboxleft{\includegraphics[width=0.8\textwidth]{Central_Dogma}}
+\defaulttextboxright{%
+DNA makes RNA makes proteins:
+\begin{itemize}\setlength{\itemsep}{0pt}
+\item DNA is {\em transcribed} into RNA in the nucleus
+\item RNA is {\em translated} into an amino acid sequence in a ribosome
+\end{itemize}}}
+\end{slide}
+
+\begin{slide}
+\stepwise{\simpleslide{Left \&\ Right (animated \#1)}{%
+\defaulttextboxleft{\includegraphics[width=0.8\textwidth]{Central_Dogma}}
+\step{\defaulttextboxright{%
+DNA makes RNA makes proteins:
+\begin{itemize}\setlength{\itemsep}{0pt}
+\item DNA is {\em transcribed} into RNA in the nucleus
+\item RNA is {\em translated} into an amino acid sequence in a ribosome
+\end{itemize}}}}}
+\end{slide}
+
+\begin{slide}
+\stepwise{\simpleslide{Left \&\ Right (animated \#2)}{%
+\step{\defaulttextboxright{%
+DNA makes RNA makes proteins:
+\begin{itemize}\setlength{\itemsep}{0pt}
+\item DNA is {\em transcribed} into RNA in the nucleus
+\item RNA is {\em translated} into an amino acid sequence in a ribosome
+\end{itemize}}}
+\step{\defaulttextboxleft{\includegraphics[width=0.8\textwidth]{Central_Dogma}}}}}
+\end{slide}
+\end{document}

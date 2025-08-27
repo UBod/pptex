@@ -29,12 +29,12 @@
 \replacecolor{pagecolor}{white}
 \replacecolor{textcolor}{black}
 
-\newcommand{\blue}{\color{jkublue}}
-\newcommand{\purple}{\color{jkupurple}}
-\newcommand{\red}{\color{jkured}}
-\newcommand{\yellow}{\color{jkuyellow}}
-\newcommand{\green}{\color{jkugreen}}
-\newcommand{\lightblue}{\color{jkulightblue}}
+\def\blue{\color{jkublue}}
+\def\purple{\color{jkupurple}}
+\def\red{\color{jkured}}
+\def\yellow{\color{jkuyellow}}
+\def\green{\color{jkugreen}}
+\def\lightblue{\color{jkulightblue}}
 
 %
 % hyperref setup
@@ -103,7 +103,7 @@
 #2
 \end{picture}}
 
-\newcommand{\clearslide}{\put(0,2){\color{biowh}\rule{25.4\semcm}{12\semcm}}}
+\newcommand{\clearslide}{\put(0,2){\color{white}\rule{25.4\semcm}{12\semcm}}}
 
 \renewcommand{\textboxdefaultfont}{\small}
 

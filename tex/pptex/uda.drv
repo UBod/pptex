@@ -40,8 +40,8 @@
 \replacecolor{pagecolor}{udawh}
 \replacecolor{textcolor}{udabl}
 
-\newcommand{\blue}{\color{udaaz}}
-\newcommand{\gray}{\color{udagr}}
+\def\blue{\color{udaaz}}
+\def\gray{\color{udagr}}
 
 %
 % hyperref setup

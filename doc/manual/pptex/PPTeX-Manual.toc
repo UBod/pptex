@@ -1,0 +1,32 @@
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {section}{\numberline {2}Layouts}{2}{section.2}%
+\contentsline {section}{\numberline {3}Basic Usage}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Convenience Macros for Positioning Text and Pictures Freely}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Further Convenience Macros for Positioning Text and Pictures}{5}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}The Foot Line}{5}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Lengths}{5}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Graphics Inclusion}{5}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Animation}{6}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}Hyperlinks}{6}{subsection.3.7}%
+\contentsline {subsection}{\numberline {3.8}Packages}{6}{subsection.3.8}%
+\contentsline {section}{\numberline {4}Layout-Dependent Behavior}{6}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Optional argument of \texttt {titleslide} command}{6}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Page formats}{7}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Additional fonts}{7}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Colors}{7}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Layout \texttt {fhooe}}{7}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}Layout \texttt {htll}}{7}{subsubsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.3}Layout \texttt {ub}}{7}{subsubsection.4.4.3}%
+\contentsline {subsubsection}{\numberline {4.4.4}Layout \texttt {jku}}{8}{subsubsection.4.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.5}Layout \texttt {bioinf}}{8}{subsubsection.4.4.5}%
+\contentsline {subsubsection}{\numberline {4.4.6}Layout \texttt {jkuold}}{8}{subsubsection.4.4.6}%
+\contentsline {subsubsection}{\numberline {4.4.7}Layout \texttt {scch}}{8}{subsubsection.4.4.7}%
+\contentsline {subsubsection}{\numberline {4.4.8}Layout \texttt {scchh}}{9}{subsubsection.4.4.8}%
+\contentsline {subsubsection}{\numberline {4.4.9}Layout \texttt {oldscch}}{9}{subsubsection.4.4.9}%
+\contentsline {subsubsection}{\numberline {4.4.10}Layout \texttt {uda}}{9}{subsubsection.4.4.10}%
+\contentsline {subsubsection}{\numberline {4.4.11}Layout \texttt {udaold}}{9}{subsubsection.4.4.11}%
+\contentsline {subsection}{\numberline {4.5}Layout-specific convenience macros}{10}{subsection.4.5}%
+\contentsline {section}{\numberline {5}Further Caveats}{10}{section.5}%
+\contentsline {section}{\numberline {6}Related Documents}{10}{section.6}%
+\contentsline {section}{\numberline {7}License Issues}{10}{section.7}%
+\contentsline {section}{\numberline {A}Making TrueType Fonts Usable for \LaTeX \ and PDF\LaTeX }{11}{appendix.A}%

@@ -40,8 +40,8 @@
 \replacecolor{pagecolor}{ubwh}
 \replacecolor{textcolor}{ubbl}
 
-\newcommand{\blue}{\color{ubaz}}
-\newcommand{\gray}{\color{ubgr}}
+\def\blue{\color{ubaz}}
+\def\gray{\color{ubgr}}
 
 %
 % hyperref setup

@@ -2,12 +2,12 @@
 %
 % driver for PPTeX document class: JKU Slides (with 10x7.5in paper)
 %
-% last revision 2006-08-01 by Ulrich Bodenhofer
+% last revision 2016-02-17 by Ulrich Bodenhofer
 %
 %
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesFile{jku.drv}[2006/08/01 JKU Slide Class Driver]
+\ProvidesFile{jku.drv}[2016/02/17 JKU Slide Class Driver]
 
 %
 % font customizations
@@ -67,7 +67,7 @@
 \setslidelength{\JKUsmalllogowidth}{85.7mm}
 \setslidelength{\JKUsmallrest}{168.3mm}
 
-\newcommand{\jkutitleslide}[3][]{%
+\newcommand{\jkuoldtitleslide}[3][]{%
 \setslidelength{\unitlength}{1cm}
 \pdfbookmark[-1]{#2}{slide\theslide}
 \begin{picture}(25.4,19.05)
@@ -88,7 +88,7 @@
 \end{minipage}}}
 \end{picture}}
 
-\newcommand{\jkuslide}[2]{%
+\newcommand{\jkuoldslide}[2]{%
 \setslidelength{\unitlength}{1cm}
 \pdfbookmark[0]{#1}{slide\theslide}
 \begin{picture}(25.4,19.05)
@@ -104,7 +104,7 @@
 #2
 \end{picture}}
 
-\newcommand{\jkusimpletextslide}[2]{\jkuslide{#1}{%
+\newcommand{\jkuoldsimpletextslide}[2]{\jkuslide{#1}{%
 \textbox{1.48,14.0}{21.02}{#2}}}
 
 \endinput

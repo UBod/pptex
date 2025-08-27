@@ -28,8 +28,8 @@
 \replacecolor{pagecolor}{biowh}
 \replacecolor{textcolor}{biobl}
 
-\newcommand{\blue}{\color{bioaz}}
-\newcommand{\green}{\color{biove}}
+\def\blue{\color{bioaz}}
+\def\green{\color{biove}}
 
 %
 % hyperref setup

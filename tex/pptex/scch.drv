@@ -54,7 +54,7 @@
 \replacecolor{pagecolor}{scchwh}
 \replacecolor{textcolor}{scchbl}
 
-\newcommand{\red}{\color{scchre}}
+\def\red{\color{scchre}}
 
 %
 % hyperref setup
