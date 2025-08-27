@@ -33,16 +33,29 @@ may apply. Please check the headers of these files for further information.
 
 PPTeX has been developed using Version 0.0.8f of Stephan Lehmke's
 [TeXpower](http://texpower.sourceforge.net/) package. Attempts to port PPTeX to a more recent
-version of [TeXpower](http://texpower.sourceforge.net/) were not successful. The user is advised,
+version of [TeXpower](http://texpower.sourceforge.net/) were not successful  (it generally works, but annoying
+blank pages may be inserted between animated pages). The user is advised,
 therefore, not to have any other version of [TeXpower](http://texpower.sourceforge.net/)
-on his/her system except Version 0.0.8f which is enclosed in this distribution.
+on his/her system except Version 0.0.8f which is enclosed in this distribution. on his/her system except
+Version 0.0.8f which is enclosed in this very ZIP file or at least
+to make sure that the files in the enclosed texpower/` folder have priority
+over any other installation of TeXPower on his/her system.
 
-More recent versions of LaTeX are no longer compatible with all packages PPTeX depends on. This issue is
-currently unsolved. However, there is a workaround. By including the following line as first line of the LaTeX source document (even before
-`\documentclass{}`), the issue should be solved:
+Previously, it was recommended to use the following in order to avoid
+troubles on newer LaTeX systems:
 ```
 \RequirePackage[2020-02-02]{latexrelease}
 ```
+This is no longer necessary and may lead to errors. Instead, make sure
+the the packages that TeXPower depends on are installed and up-to-date:
+
+* seminar
+* koma-script
+* soul
+
+Older versions of these packages have previously been included in the
+PPTeX release, but have been removed with version 0.8.
+
 
 ## Installation
 

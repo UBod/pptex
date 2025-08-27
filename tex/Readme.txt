@@ -49,7 +49,7 @@ over any other installation of TeXPower on his/her system.
 Previously, it was recommended to use the following in order to avoid
 troubles on newer LaTeX systems:
 
-   \RequirePackage[2020-02-02]{latexrelease}
+   \Requirepackage[2020-02-02]{latexrelease}
 
 This is no longer necessary and may lead to errors. Instead, make sure
 the the packages that TeXPower depends on are installed and up-to-date:
