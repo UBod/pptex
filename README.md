@@ -38,7 +38,7 @@ blank pages may be inserted between animated pages). The user is advised,
 therefore, not to have any other version of [TeXpower](http://texpower.sourceforge.net/)
 on his/her system except Version 0.0.8f which is enclosed in this distribution. on his/her system except
 Version 0.0.8f which is enclosed in this very ZIP file or at least
-to make sure that the files in the enclosed texpower/` folder have priority
+to make sure that the files in the enclosed `texpower/` folder have priority
 over any other installation of TeXPower on his/her system.
 
 Previously, it was recommended to use the following in order to avoid
